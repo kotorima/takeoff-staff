@@ -1,0 +1,7 @@
+@use "@fontsource/inter/scss/mixins" as Inter;
+
+@include Inter.fontFace($fontName: "Inter Regular");
+@include Inter.fontFaceCustom($fontName: "Inter Bold", $weight: 700);
+
+$interRegular: "Inter Regular", sans-serif;
+$interBold: "Inter Bold", sans-serif;
