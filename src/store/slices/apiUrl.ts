@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initialState from "../initialState";
+import type { RootState } from "../generateState";
 
 export const apiUrlSlice = createSlice({
 	name: "apiUrl",
@@ -17,6 +18,6 @@ export const apiUrlSlice = createSlice({
 
 export const { setApi } = apiUrlSlice.actions;
 
-export const getApiUrl = ({ apiUrl }: { apiUrl: string }) => apiUrl;
+export const getApiUrl = ({ apiUrl }: RootState) => apiUrl;
 
 export default apiUrlSlice.reducer;
