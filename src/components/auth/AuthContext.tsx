@@ -8,4 +8,5 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>(null!);
 
+export { AuthContext };
 export default AuthContext;

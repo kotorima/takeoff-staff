@@ -22,4 +22,5 @@ const AuthStatus = () => {
 	);
 };
 
+export { AuthStatus };
 export default AuthStatus;

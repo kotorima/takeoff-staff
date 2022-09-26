@@ -6,7 +6,7 @@ import Redirect from "./Redirect";
 const paths = [
 	{
 		path: "/authorization",
-		id: 0,
+		id: 1,
 		element: <AuthorizationPage title='Authorization' />,
 	},
 	{

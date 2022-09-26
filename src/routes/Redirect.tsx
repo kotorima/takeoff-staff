@@ -11,4 +11,5 @@ const Redirect = ({ link }: Props) => (
 	</Layout>
 );
 
+export { Redirect };
 export default Redirect;

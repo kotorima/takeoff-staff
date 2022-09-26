@@ -12,4 +12,5 @@ const Navigation = () => (
 	</Suspense>
 );
 
+export { Navigation };
 export default Navigation;

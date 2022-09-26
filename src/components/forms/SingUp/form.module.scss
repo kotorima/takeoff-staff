@@ -1,0 +1,5 @@
+@import "../forms";
+
+.fup {
+	@include auth-form();
+}

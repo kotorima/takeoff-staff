@@ -16,4 +16,5 @@ const RequireAuth = ({ children }: Props) => {
 	return children;
 };
 
+export { RequireAuth };
 export default RequireAuth;

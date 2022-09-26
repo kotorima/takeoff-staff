@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import addTitlePage from "../helpers/addTitlePage";
 import { PageProps } from "../helpers/interface";
+import { Form } from "../components/forms";
 
 const AuthorizationPage = ({ title }: PageProps) => {
 	useEffect(() => {
@@ -16,7 +17,7 @@ const AuthorizationPage = ({ title }: PageProps) => {
 
 	return (
 		<div>
-			<div>Authorization Form</div>
+			<Form show='up' />
 		</div>
 	);
 };
