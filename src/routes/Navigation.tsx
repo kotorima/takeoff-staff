@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import paths from "./paths";
 
-const Navigation = () => (
+export const Navigation = () => (
 	<Suspense fallback={<p>carregando</p>}>
 		<Routes>
 			{paths.map(({ id, path, element }) => (
@@ -12,5 +12,4 @@ const Navigation = () => (
 	</Suspense>
 );
 
-export { Navigation };
 export default Navigation;

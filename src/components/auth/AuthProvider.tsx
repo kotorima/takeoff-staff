@@ -6,7 +6,7 @@ interface Props {
 	children: JSX.Element;
 }
 
-const AuthProvider = ({ children }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
 	let [user, setUser] = useState<any>(null);
 
 	let signin = (newUser: string, callback: VoidFunction) => {
@@ -28,5 +28,4 @@ const AuthProvider = ({ children }: Props) => {
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export { AuthProvider };
 export default AuthProvider;

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../helpers/auth";
 
-const AuthStatus = () => {
+export const AuthStatus = () => {
 	let auth = useAuth();
 	let navigate = useNavigate();
 
@@ -22,5 +22,4 @@ const AuthStatus = () => {
 	);
 };
 
-export { AuthStatus };
 export default AuthStatus;

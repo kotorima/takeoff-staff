@@ -3,7 +3,7 @@ import { Button, TextField, Link, Typography, Box } from "@mui/material";
 import { FormProps } from "../../../helpers/interface";
 import styles from "./form.module.scss";
 
-const SingIn = ({ show, onChange }: FormProps) => {
+export const SingIn = ({ show, onChange }: FormProps) => {
 	const { fin, input, legend, link, button } = styles;
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -59,6 +59,3 @@ const SingIn = ({ show, onChange }: FormProps) => {
 		</Box>
 	);
 };
-
-export { SingIn };
-export default SingIn;

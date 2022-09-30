@@ -6,7 +6,6 @@ interface AuthContextType {
 	signout: (callback: VoidFunction) => void;
 }
 
-const AuthContext = createContext<AuthContextType>(null!);
+export const AuthContext = createContext<AuthContextType>(null!);
 
-export { AuthContext };
 export default AuthContext;

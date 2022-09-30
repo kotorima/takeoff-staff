@@ -12,7 +12,6 @@ const paths = [
 	{
 		path: "/contacts",
 		id: 2,
-		auth: true,
 		element: <ContactsPage title='Contacts' />,
 	},
 	{

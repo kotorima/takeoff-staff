@@ -5,7 +5,7 @@ import store from "./store/generateState";
 import reportWebVitals from "./reportWebVitals";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
-const devApiUrl = "https://boiling-refuge-66454.herokuapp.com";
+const devApiUrl = "http://localhost:8000";
 // const prodApiUrl = "";
 
 root.render(

@@ -10,6 +10,7 @@ module.exports = () => {
 		for (let i = 0; i < length; ++i) {
 			let obj = {};
 			fields.map((item) => (obj[item] = casual[item]));
+			obj.id = casual.integer(0, 1000);
 			result.push(obj);
 		}
 

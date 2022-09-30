@@ -1,4 +1,5 @@
-function addTitlePage(title: string) {
+export function addTitlePage(title: string) {
 	document.title = title;
 }
+
 export default addTitlePage;

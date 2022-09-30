@@ -5,11 +5,10 @@ interface Props {
 	link: string;
 }
 
-const Redirect = ({ link }: Props) => (
+export const Redirect = ({ link }: Props) => (
 	<Layout>
 		<Navigate replace to={link} />
 	</Layout>
 );
 
-export { Redirect };
 export default Redirect;

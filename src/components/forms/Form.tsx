@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SingUp from "./SingUp/SingUp";
-import SingIn from "./SingIn/SingIn";
+import { SingUp } from "./SingUp/SingUp";
+import { SingIn } from "./SingIn/SingIn";
 
 interface Props {
 	show: string;
@@ -11,7 +11,7 @@ interface ToggleShowArg {
 	shIn: boolean;
 }
 
-const Form = ({ show }: Props) => {
+export const Form = ({ show }: Props) => {
 	const [showUp, setShowUp] = useState(show === "up" ? true : false);
 	const [showIn, setShowIn] = useState(!showUp);
 
@@ -30,6 +30,3 @@ const Form = ({ show }: Props) => {
 		</>
 	);
 };
-
-export { Form };
-export default Form;

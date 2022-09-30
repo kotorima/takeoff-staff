@@ -1,11 +1,11 @@
 interface Props {
 	url: string;
-	method: string;
-	data: BodyInit | null;
-	format: string;
+	method?: string;
+	data?: BodyInit | null;
+	format?: string;
 }
 
-const fetchRequest = ({
+export const fetchRequest = ({
 	url,
 	method = "GET",
 	data = null,

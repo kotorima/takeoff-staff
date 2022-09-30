@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import addTitlePage from "../helpers/addTitlePage";
 import { PageProps } from "../helpers/interface";
+import { AddContact } from "../components/AddContact";
+import { ContactsList } from "../components/ContactsList";
 
 const ContactsPage = ({ title }: PageProps) => {
 	useEffect(() => {
@@ -9,7 +11,8 @@ const ContactsPage = ({ title }: PageProps) => {
 
 	return (
 		<div>
-			<div>Contacts List</div>
+			<AddContact />
+			<ContactsList />
 		</div>
 	);
 };

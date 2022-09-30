@@ -5,7 +5,7 @@ interface Props {
 	children: JSX.Element;
 }
 
-const RequireAuth = ({ children }: Props) => {
+export const RequireAuth = ({ children }: Props) => {
 	let auth = useAuth();
 	let location = useLocation();
 
@@ -16,5 +16,4 @@ const RequireAuth = ({ children }: Props) => {
 	return children;
 };
 
-export { RequireAuth };
 export default RequireAuth;
