@@ -7,6 +7,7 @@ const initialState = {
 		accessToken: getAccessToken || null,
 		refreshToken: getRefreshToken || null,
 	},
+	contacts: [],
 };
 
 export default initialState;

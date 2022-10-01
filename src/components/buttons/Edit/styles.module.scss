@@ -1,0 +1,5 @@
+@import "../buttons";
+
+.edit {
+	@include buttons();
+}

@@ -25,8 +25,8 @@ module.exports = () => {
 		userId: casual.uuid,
 	};
 
-	const fieldsForContact = ["city", "name", "email", "company_name", "phone"];
-	const contactsData = arrayGenerator(fieldsForContact, 10);
+	const fieldsForContact = ["name", "email", "phone"];
+	const contactsData = arrayGenerator(fieldsForContact, 20);
 
 	defineData("user", userData);
 	defineData("contacts", contactsData);

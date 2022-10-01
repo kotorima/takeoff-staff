@@ -22,4 +22,19 @@ export const fetchRequest = ({
 	return fetch(url, params).then((resp) => resp.json());
 };
 
+export const add = (url: string, data: BodyInit) => {
+	const method = "POST";
+	return fetchRequest({ url, method, data }).then((res) => res);
+};
+
+export const update = (url: string, data: BodyInit) => {
+	const method = "PUT";
+	return fetchRequest({ url, method, data }).then((res) => res);
+};
+
+export const remove = (url: string) => {
+	const method = "DELETE";
+	return fetchRequest({ url, method }).then((res) => res);
+};
+
 export default fetchRequest;

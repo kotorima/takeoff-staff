@@ -1,2 +1,2 @@
 export { addTitlePage } from "./addTitlePage";
-export { fetchRequest } from "./fetchRequest";
+export { fetchRequest, add, update, remove } from "./fetchRequest";

@@ -1,40 +1,33 @@
-// import { useEffect } from "react";
-import { Box, Paper, Tooltip, IconButton } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
+import { TableRow, TableCell, TextField } from "@mui/material";
+import { ButtonDelete, ButtonEdit } from "../buttons";
+import ContactsContext from "../ContactsList/context";
+import { ContactElement, FuncButtonProps } from "../../helpers/interface";
+import { getApiUrl } from "../../store/slices/apiUrl";
 import styles from "./styles.module.scss";
 
-interface Props {
-	city: string;
-	name: string;
-	email: string;
-	companyName: string;
-	phone: string;
-	id: number;
-}
-
-export const ContactItem = ({
-	city,
-	name,
-	email,
-	companyName,
-	phone,
-	id,
-}: Props) => {
+export const ContactItem = ({ name, email, phone, id }: ContactElement) => {
 	const { item } = styles;
+	const { setListContacts } = useContext(ContactsContext);
+	const url = useSelector(getApiUrl) + "/contacts";
+
+	const hideElem: FuncButtonProps = (state, newList) => {
+		console.log(state);
+		setListContacts(newList);
+	};
+
 	return (
-		<Paper className={item} elevation={3}>
-			<Box></Box>
-			<Tooltip disableFocusListener title='Delete'>
-				<IconButton>
-					<DeleteIcon />
-				</IconButton>
-			</Tooltip>
-			<Tooltip disableFocusListener title='Edit'>
-				<IconButton>
-					<EditIcon />
-				</IconButton>
-			</Tooltip>
-		</Paper>
+		<TableRow>
+			<TableCell>
+				<TextField defaultValue={name} type='text' disabled />
+			</TableCell>
+			<TableCell>{phone}</TableCell>
+			<TableCell>{email}</TableCell>
+			<TableCell align='right'>
+				<ButtonDelete title='Delete' id={id} url={url} onChange={hideElem} />
+				<ButtonEdit title='Edit' id={id} url={url} />
+			</TableCell>
+		</TableRow>
 	);
 };
