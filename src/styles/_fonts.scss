@@ -1,3 +1,4 @@
+// fonts module
 @use "@fontsource/inter/scss/mixins" as Inter;
 
 @include Inter.fontFace($fontName: "Inter Regular");

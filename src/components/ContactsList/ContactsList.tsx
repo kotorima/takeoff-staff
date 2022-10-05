@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-	Typography,
-	Table,
-	TableHead,
-	TableBody,
-	TableRow,
-	TableCell,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { ContactItem } from "../ContactItem";
 import { fetchRequest } from "../../helpers";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import ContactsContext from "./context";
-// import styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 export const ContactsList = () => {
 	const [contacts, setListContacts] = useState([]);
 	const url = useSelector(getApiUrl) + "/contacts";
+	const { header, container, body } = styles;
 
 	useEffect(() => {
 		console.log(url);
@@ -32,16 +26,14 @@ export const ContactsList = () => {
 			</Typography>
 			<ContactsContext.Provider value={{ contacts, setListContacts }}>
 				{contacts ? (
-					<Table stickyHeader>
-						<TableHead>
-							<TableRow>
-								<TableCell>Name</TableCell>
-								<TableCell>Phone</TableCell>
-								<TableCell>Email</TableCell>
-								<TableCell align='right'>Actions</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
+					<div className={container}>
+						<div className={header}>
+							<div>Name</div>
+							<div>Phone</div>
+							<div>Email</div>
+							<div>Actions</div>
+						</div>
+						<div className={body}>
 							{contacts.map(({ name, email, phone, id }) => (
 								<ContactItem
 									key={id}
@@ -51,8 +43,8 @@ export const ContactsList = () => {
 									phone={phone}
 								/>
 							))}
-						</TableBody>
-					</Table>
+						</div>
+					</div>
 				) : (
 					<Typography component='h4' variant='h5'>
 						Your contact list is empty

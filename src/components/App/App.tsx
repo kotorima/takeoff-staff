@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 // import AuthProvider from "../auth/AuthProvider";
 import { Layout, Navigation } from "../../routes";
 import { setApi } from "../../store/slices/apiUrl";
-import "../../styles/_globals.scss";
+import "../../index.scss";
 
 interface Props {
 	apiUrl: string;

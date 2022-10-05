@@ -1,0 +1,23 @@
+.container {
+	display: grid;
+	grid-template-areas:
+		"header"
+		"body";
+	position: relative;
+}
+
+.header {
+	@include table-row;
+	grid-area: header;
+	font-size: rem(20px);
+	font-family: $interBold;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.body {
+	display: grid;
+	grid-area: body;
+	grid-template-columns: repeat(1, 1fr);
+}

@@ -1,0 +1,8 @@
+@import "~normalize-scss";
+@import "./styles/fonts";
+@import "./styles/adaptive";
+@import "./styles/colors";
+@import "./styles/mixins";
+@import "./styles/globals";
+
+@include normalize();
