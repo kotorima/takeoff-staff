@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 export const ContactsList = () => {
 	const [contacts, setListContacts] = useState([]);
 	const url = useSelector(getApiUrl) + "/contacts";
-	const { header, container, body } = styles;
+	const { header, container, body, left } = styles;
 
 	useEffect(() => {
 		console.log(url);
@@ -31,7 +31,7 @@ export const ContactsList = () => {
 							<div>Name</div>
 							<div>Phone</div>
 							<div>Email</div>
-							<div>Actions</div>
+							<div className={left}>Actions</div>
 						</div>
 						<div className={body}>
 							{contacts.map(({ name, email, phone, id }) => (

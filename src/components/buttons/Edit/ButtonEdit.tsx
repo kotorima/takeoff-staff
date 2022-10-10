@@ -7,7 +7,7 @@ import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { getContacts, setContacts } from "../../../store/slices/contacts";
 import styles from "./styles.module.scss";
 
-export const ButtonEdit = ({ title, id, url }: ButtonProps) => {
+export const ButtonEdit = ({ title, id, url, onChange }: ButtonProps) => {
 	const [isEdited, setIsEdited] = useState(false);
 	const dispatch = useDispatch();
 	const contacts = useSelector(getContacts);
@@ -16,8 +16,10 @@ export const ButtonEdit = ({ title, id, url }: ButtonProps) => {
 		if (isEdited) {
 			const editUrl = url + "/" + id;
 			console.log(`edit element ${id}`, editUrl);
+			// update(editUrl)
 		}
 
+		// onChange(true);
 		return setIsEdited(!isEdited);
 	};
 

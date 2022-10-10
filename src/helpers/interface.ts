@@ -26,5 +26,5 @@ export interface ButtonProps {
 	title: string;
 	id: number;
 	url: string;
-	onChange?: FuncButtonProps;
+	onChange: FuncButtonProps;
 }

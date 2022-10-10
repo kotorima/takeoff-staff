@@ -20,6 +20,28 @@
 	}
 }
 
-.input {
-	width: 100%;
+.input input {
+	color: $basic-text;
+	padding: 10px 14px;
+	box-shadow: 0 0 0 1px $gray;
+	transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+	&:focus {
+		box-shadow: 0 0 0 1px $active-blue;
+	}
+
+	&:hover {
+		box-shadow: 0 0 0 1px $dark-gray;
+	}
+}
+
+.disabled {
+	.input {
+		pointer-events: none;
+
+		input {
+			color: $gray;
+			box-shadow: 0 0 0 1px $muted-gray;
+		}
+	}
 }

@@ -17,7 +17,7 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 				(item: ContactElement) => item.id !== id,
 			);
 			console.log(`remove element ${id}, ${data}`);
-			if (onChange) onChange(true, newContacts);
+			onChange(true, newContacts);
 		});
 	};
 	return (

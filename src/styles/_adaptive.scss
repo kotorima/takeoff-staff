@@ -1,48 +1,49 @@
+//indexes     [  1     2     3  ]
 $mobilePoints: 320px 370px 410px;
 $mobileLandPoints: 480px 560px 620px;
-//                   1      2     3
 $tabletPoints: 767px 960px;
 $desktopPoints: 1280px 1680px 1920px;
 $mac: 2000px;
 $containerWidth: 1200px;
-//                    1      2     3
 
-$mobile370: "screen and (min-width: " + nth($mobilePoints, 2) + ")"; // 370
-$mobileLand480: "screen and (min-width: " + nth($mobileLandPoints, 1) + ")"; // 480
-$mobile767: "screen and (min-width: " + nth($tabletPoints, 1) + ")"; // 767
-$tablet767W600H: "screen and (min-width: " + nth($tabletPoints, 1) +
-	") and (min-height: 600px)"; // 767W 600H
-$tabletLand960: "screen and (min-width: " + nth($tabletPoints, 2) + ")"; // 960
-$desktop1280: "screen and (min-width: " + nth($desktopPoints, 1) + ")"; // 1280
-$desktop1366: "screen and (min-width: 1366px)"; // 1366
-$desktopSmallHeight1200W700H: "screen and (min-width: " + nth($desktopPoints, 1) +
-	") and (max-height: 700px)"; // 1200 и высота меньше 700
-$desktopHD1600: "screen and (min-width: " + nth($desktopPoints, 2) + ")"; // 1600
-$desktopBig1900: "screen and (min-width: " + nth($desktopPoints, 3) + ")"; // 1900
-$mac2000: "screen and (min-width: " + nth($mac, 1) + ")"; // 2000
+$mobile370: "min-width: " + nth($mobilePoints, 2); // 370
+$mobileLand480: "min-width: " + nth($mobileLandPoints, 1); // 480
+$mobile767: "min-width: " + nth($tabletPoints, 1); // 767
+// $tablet767W600H: "screen and (min-width: " + nth($tabletPoints, 1) +
+// 	") and (min-height: 600px)"; // 767W 600H
+$tabletLand960: "min-width: " + nth($tabletPoints, 2); // 960
+$desktop1280: "min-width: " + nth($desktopPoints, 1); // 1280
+$desktop1366: "min-width: 1366px"; // 1366
+// $desktopSmallHeight1200W700H: "screen and (min-width: " + nth($desktopPoints, 1) +
+// 	") and (max-height: 700px)"; // 1200 и высота меньше 700
+$desktopHD1600: "min-width: " + nth($desktopPoints, 2); // 1600
+$desktopBig1900: "min-width: " + nth($desktopPoints, 3); // 1900
+$mac2000: "min-width: " + nth($mac, 1); // 2000
 
-@mixin media($bp, $fs, $fw, $cw) {
+@mixin media($bp, $cw) {
 	@media (min-width: $bp) {
-		/*html {
-      font-size ((bp * fs) / fw) // fw - ширина контента в фотошопе
-    }*/
-
-		.container {
+		.adaptive-container {
 			width: $cw;
 		}
 	}
 }
 
+@mixin adaptive($point) {
+	@media ($point) {
+		@content;
+	}
+}
+
 @each $element in $mobilePoints {
-	@include media($element, 16, nth($mobilePoints, 2), 100%);
+	@include media($element, 100%);
 }
 
 @each $element in $mobileLandPoints {
-	@include media($element, 16, nth($mobileLandPoints, 3), 100%);
+	@include media($element, 100%);
 }
 
-@include media(nth($tabletPoints, 2), 17.5, nth($desktopPoints, 3), 880px);
+@include media(nth($tabletPoints, 2), 880px);
 
 @each $element in $desktopPoints {
-	@include media($element, 16, nth($desktopPoints, 3), $containerWidth);
+	@include media($element, $containerWidth);
 }

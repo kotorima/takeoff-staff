@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import { Button, TextField, Link, Typography, Box } from "@mui/material";
 import { FormProps } from "../../../helpers/interface";
-import styles from "./form.module.scss";
+import styles from "./styles.module.scss";
 
 export const SingUp = ({ show, onChange }: FormProps) => {
 	const { fup, row, input, legend, link, button } = styles;

@@ -1,75 +1,87 @@
 import { useState, useContext } from "react";
 import { useSelector } from "react-redux";
-import { TextField } from "@mui/material";
+import { TextField, Input } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit } from "../buttons";
 import ContactsContext from "../ContactsList/context";
 import { ContactElement, FuncButtonProps } from "../../helpers/interface";
 import { getApiUrl } from "../../store/slices/apiUrl";
+import classNames from "classnames";
 import styles from "./styles.module.scss";
+
+const cx = classNames.bind(styles);
 
 export const ContactItem = ({ name, email, phone, id }: ContactElement) => {
 	const [show, setShow] = useState(true);
 	const [list, setList] = useState([]);
-	const { item, input, hide, wrapper } = styles;
+	const [edit, setEdit] = useState(false);
+	const { item, input, hide, wrapper, left, disabled } = styles;
 	const { setListContacts } = useContext(ContactsContext);
 	const url = useSelector(getApiUrl) + "/contacts";
+
 	const hideElem: FuncButtonProps = (state, newList) => {
 		console.log(state);
 		setShow(false);
 		setList(newList);
 	};
-	const transitionEnd = () => {
-		setListContacts(list);
-		console.log("anima end");
-	};
 
-	const classNames = {
+	const editElem: FuncButtonProps = (state, newList) => {};
+
+	const transitionEnd = () => setListContacts(list);
+
+	const transitionNames = {
 		enterActive: item,
 		exitActive: hide,
 	};
 
+	const itemStyles = cx({
+		[item]: true,
+		[disabled]: !edit,
+	});
 	return (
 		<CSSTransition
 			in={show}
-			classNames={classNames}
+			classNames={transitionNames}
 			timeout={500}
 			unmountOnExit
 			onExited={() => transitionEnd()}>
-			<div className={item}>
+			<div className={itemStyles}>
 				<div className={wrapper}>
 					<div>
-						<TextField
+						<Input
 							className={input}
-							defaultValue={name}
+							value={name}
 							type='text'
-							disabled
+							fullWidth
+							disableUnderline
 						/>
 					</div>
 					<div>
-						<TextField
+						<Input
 							className={input}
-							defaultValue={phone}
+							value={phone}
 							type='tel'
-							disabled
+							fullWidth
+							disableUnderline
 						/>
 					</div>
 					<div>
-						<TextField
+						<Input
 							className={input}
-							defaultValue={email}
+							value={email}
 							type='email'
-							disabled
+							fullWidth
+							disableUnderline
 						/>
 					</div>
-					<div>
+					<div className={left}>
 						<ButtonDelete
 							title='Delete'
 							id={id}
 							url={url}
 							onChange={hideElem}
 						/>
-						<ButtonEdit title='Edit' id={id} url={url} />
+						<ButtonEdit title='Edit' id={id} url={url} onChange={editElem} />
 					</div>
 				</div>
 			</div>
