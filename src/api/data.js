@@ -1,21 +1,19 @@
 module.exports = () => {
-	const casual = require("casual");
+	const {
+		defineData,
+		arrayGenerator,
+		valueGenerator,
+		casual,
+	} = require("./generators.js");
 
-	const defineData = (name, data) => casual.define(name, () => data);
-
-	const arrayGenerator = (fields, number) => {
-		const length = number || casual.integer(0, 100);
-		const result = [];
-
-		for (let i = 0; i < length; ++i) {
-			let obj = {};
-			fields.map((item) => (obj[item] = casual[item]));
-			obj.id = casual.integer(0, 1000);
-			result.push(obj);
-		}
-
-		return result;
+	const elementForContactList = {
+		email: (start) => valueGenerator(start, "email"),
+		phone: (start) => valueGenerator(start, "phone"),
+		name: (start) => valueGenerator(start, "full_name"),
+		id: (start) => valueGenerator(start, "id"),
 	};
+
+	const contactsData = arrayGenerator(elementForContactList, 20);
 
 	const userData = {
 		email: casual.email,
@@ -24,9 +22,6 @@ module.exports = () => {
 		password: casual.password,
 		userId: casual.uuid,
 	};
-
-	const fieldsForContact = ["name", "email", "phone"];
-	const contactsData = arrayGenerator(fieldsForContact, 20);
 
 	defineData("user", userData);
 	defineData("contacts", contactsData);

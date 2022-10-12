@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { update } from "../../../helpers/fetchRequest";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { getContacts, setContacts } from "../../../store/slices/contacts";
+import { ButtonCancel } from "../Cancel/ButtonCancel";
 import styles from "./styles.module.scss";
 
 export const ButtonEdit = ({ title, id, url, onChange }: ButtonProps) => {
@@ -13,21 +14,32 @@ export const ButtonEdit = ({ title, id, url, onChange }: ButtonProps) => {
 	const contacts = useSelector(getContacts);
 
 	const editElement = () => {
-		if (isEdited) {
-			const editUrl = url + "/" + id;
-			console.log(`edit element ${id}`, editUrl);
-			// update(editUrl)
-		}
+		// if (isEdited) {
+		// 	const editUrl = url + "/" + id;
+		// 	console.log(`edit element ${id}`, editUrl);
+		// 	// update(editUrl)
+		// }
 
-		// onChange(true);
-		return setIsEdited(!isEdited);
+		onChange(true);
+		return setIsEdited(true);
+	};
+
+	const cancelElement = () => {
+		onChange(false);
+		return setIsEdited(false);
 	};
 
 	return (
-		<Tooltip disableFocusListener title={title} onClick={editElement}>
-			<IconButton>
-				<EditIcon />
-			</IconButton>
-		</Tooltip>
+		<>
+			{isEdited ? (
+				<ButtonCancel title='Cancel' onChange={cancelElement} />
+			) : (
+				<Tooltip disableFocusListener title={title} onClick={editElement}>
+					<IconButton>
+						<EditIcon />
+					</IconButton>
+				</Tooltip>
+			)}
+		</>
 	);
 };

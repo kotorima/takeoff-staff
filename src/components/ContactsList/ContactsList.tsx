@@ -13,9 +13,9 @@ export const ContactsList = () => {
 	const { header, container, body, left } = styles;
 
 	useEffect(() => {
-		console.log(url);
 		fetchRequest({ url }).then((data) => {
 			setListContacts(data);
+			console.log(data);
 		});
 	}, [url]);
 

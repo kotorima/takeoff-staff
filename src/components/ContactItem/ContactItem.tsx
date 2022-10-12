@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, FormEvent, useRef, RefObject } from "react";
 import { useSelector } from "react-redux";
-import { TextField, Input } from "@mui/material";
+import { Box, Input } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
-import { ButtonDelete, ButtonEdit } from "../buttons";
+import { ButtonDelete, ButtonEdit, ButtonSave } from "../buttons";
 import ContactsContext from "../ContactsList/context";
+import { CustomInput } from "components/CustomInput/CustomInput";
 import { ContactElement, FuncButtonProps } from "../../helpers/interface";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
+import { update, fetchRequest } from "../../helpers/fetchRequest";
 
 const cx = classNames.bind(styles);
 
@@ -18,14 +20,31 @@ export const ContactItem = ({ name, email, phone, id }: ContactElement) => {
 	const { item, input, hide, wrapper, left, disabled } = styles;
 	const { setListContacts } = useContext(ContactsContext);
 	const url = useSelector(getApiUrl) + "/contacts";
+	const formref: RefObject<HTMLFormElement> | undefined = useRef(null);
 
 	const hideElem: FuncButtonProps = (state, newList) => {
 		console.log(state);
 		setShow(false);
-		setList(newList);
+		// setList(newList);
 	};
 
-	const editElem: FuncButtonProps = (state, newList) => {};
+	const editElem: FuncButtonProps = (state, newList) => {
+		setEdit(state);
+	};
+
+	const saveElement: FuncButtonProps = (state, newList) => {
+		// setEdit(true);
+		console.log("save");
+	};
+
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const body = formref.current || undefined;
+		let datasubmit = new FormData(body);
+		console.log("id: ", id);
+		const saveUrl = url + "/" + id;
+		update(saveUrl, datasubmit).then((res) => console.log("response", res));
+	};
 
 	const transitionEnd = () => setListContacts(list);
 
@@ -46,34 +65,40 @@ export const ContactItem = ({ name, email, phone, id }: ContactElement) => {
 			unmountOnExit
 			onExited={() => transitionEnd()}>
 			<div className={itemStyles}>
-				<div className={wrapper}>
-					<div>
-						<Input
-							className={input}
-							value={name}
-							type='text'
-							fullWidth
-							disableUnderline
-						/>
-					</div>
-					<div>
-						<Input
-							className={input}
-							value={phone}
-							type='tel'
-							fullWidth
-							disableUnderline
-						/>
-					</div>
-					<div>
-						<Input
-							className={input}
-							value={email}
-							type='email'
-							fullWidth
-							disableUnderline
-						/>
-					</div>
+				{/* <form ref={formref} className={wrapper} onSubmit={handleSubmit}>
+					<input type='text' name='firstName' />
+					<input type='submit' value='sub' />
+				</form> */}
+				{/* <Box
+					ref={formref}
+					component='form'
+					onSubmit={handleSubmit}
+					className={wrapper}> */}
+				<form ref={formref} className={wrapper} onSubmit={handleSubmit}>
+					<CustomInput
+						className={input}
+						defaultValue={name}
+						type='text'
+						name='name'
+						helper='Some important helper text'
+						id={id}
+					/>
+					<CustomInput
+						className={input}
+						defaultValue={phone}
+						type='tel'
+						name='phone'
+						helper='Some important helper text'
+						id={id}
+					/>
+					<CustomInput
+						className={input}
+						defaultValue={email}
+						type='email'
+						name='email'
+						helper='Some important helper text'
+						id={id}
+					/>
 					<div className={left}>
 						<ButtonDelete
 							title='Delete'
@@ -82,8 +107,10 @@ export const ContactItem = ({ name, email, phone, id }: ContactElement) => {
 							onChange={hideElem}
 						/>
 						<ButtonEdit title='Edit' id={id} url={url} onChange={editElem} />
+						<ButtonSave title='Save' id={id} url={url} onChange={saveElement} />
 					</div>
-				</div>
+				</form>
+				{/* </Box> */}
 			</div>
 		</CSSTransition>
 	);

@@ -19,12 +19,12 @@ export interface ContactElement {
 }
 
 export interface FuncButtonProps {
-	(state: boolean, updateList: never[]): void;
+	(state: boolean, updateList?: never[]): void;
 }
 
 export interface ButtonProps {
 	title: string;
-	id: number;
-	url: string;
+	id?: number;
+	url?: string;
 	onChange: FuncButtonProps;
 }
