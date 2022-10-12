@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import DisabledByDefaultRoundedIcon from "@mui/icons-material/DisabledByDefaultRounded";
-import { update } from "../../../helpers/fetchRequest";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { getContacts, setContacts } from "../../../store/slices/contacts";
 import styles from "./styles.module.scss";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { ContactItem } from "../ContactItem";
-import { fetchRequest } from "../../helpers";
+import { request } from "../../helpers";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import ContactsContext from "./context";
 import styles from "./styles.module.scss";
@@ -13,7 +13,7 @@ export const ContactsList = () => {
 	const { header, container, body, left } = styles;
 
 	useEffect(() => {
-		fetchRequest({ url }).then((data) => {
+		request(url).then((data) => {
 			setListContacts(data);
 			console.log(data);
 		});

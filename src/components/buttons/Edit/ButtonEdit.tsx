@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { update } from "../../../helpers/fetchRequest";
+import { request } from "../../../helpers/request";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { getContacts, setContacts } from "../../../store/slices/contacts";
 import { ButtonCancel } from "../Cancel/ButtonCancel";

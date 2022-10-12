@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { remove } from "../../../helpers/fetchRequest";
+import { request } from "../../../helpers/request";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import ContactsContext from "../../ContactsList/context";
 // import styles from "./styles.module.scss";
@@ -11,12 +11,14 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 
 	const removeElement = () => {
 		const deleteUrl = url + "/" + id;
-
-		remove(deleteUrl).then((data) => {
+		const params = {
+			method: "DELETE",
+		};
+		request(deleteUrl, params).then((res) => {
 			const newContacts = contacts.filter(
 				(item: ContactElement) => item.id !== id,
 			);
-			console.log(`remove element ${id}, ${data}`);
+			console.log(`remove element ${id}, ${res}`);
 			onChange(true, newContacts);
 		});
 	};
