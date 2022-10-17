@@ -8,7 +8,7 @@ interface Props {
 	helper?: string;
 	className?: string;
 	id: number;
-	cancel?: boolean;
+	restore?: boolean;
 	getValue?: (value: { [field: string]: string }) => void | undefined;
 }
 
@@ -20,7 +20,7 @@ export const CustomInput = ({
 	id,
 	name,
 	getValue,
-	cancel,
+	restore,
 }: Props) => {
 	const inputControl = "helper-text-" + name + "-" + id;
 	const [value, setValue] = useState(defaultValue);
@@ -31,7 +31,7 @@ export const CustomInput = ({
 			setValue(defaultValue);
 			setChange(false);
 		}
-	}, [cancel]);
+	}, [restore]);
 
 	const changeValue = (event: FormEvent) => {
 		const target = event.target as HTMLInputElement;

@@ -16,11 +16,10 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 			method: "DELETE",
 		};
 		request(deleteUrl, params).then((res) => {
-			const newContacts = contacts.filter(
+			const newContacts: ContactElement[] = contacts.filter(
 				(item: ContactElement) => item.id !== id,
 			);
-			console.log(`remove element ${id}, ${res}`);
-			onChange(true, newContacts);
+			onChange(newContacts);
 		});
 	};
 	return (

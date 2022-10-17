@@ -1,5 +1,3 @@
-import { SetStateAction } from "react";
-
 export interface PageProps {
 	title: string;
 }
@@ -21,7 +19,7 @@ export interface ContactElement {
 }
 
 export interface FuncButtonProps {
-	(state: boolean, updateList: SetStateAction<never[]>): void;
+	(updateList: ContactElement[]): void;
 }
 
 export interface ButtonProps {

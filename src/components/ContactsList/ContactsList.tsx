@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { Typography } from "@mui/material";
 import { ContactItem } from "../ContactItem";
 import { request } from "../../helpers";
+import { ContactElement } from "../../helpers/interface";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import ContactsContext from "./context";
 import styles from "./styles.module.scss";
 
 export const ContactsList = () => {
-	const [contacts, setListContacts] = useState([]);
+	const [contacts, setListContacts] = useState<ContactElement[]>([]);
 	const url = useSelector(getApiUrl) + "/contacts";
 	const { header, container, body, left } = styles;
 
@@ -33,13 +34,14 @@ export const ContactsList = () => {
 							<div className={left}>Actions</div>
 						</div>
 						<div className={body}>
-							{contacts.map(({ name, email, phone, id }) => (
+							{contacts.map(({ name, email, phone, id }, index) => (
 								<ContactItem
 									key={id}
 									email={email}
 									name={name}
 									id={id}
 									phone={phone}
+									index={index}
 								/>
 							))}
 						</div>

@@ -1,38 +1,22 @@
 import { Tooltip, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { ButtonProps, FuncButtonProps } from "../../../helpers/interface";
-import { ButtonCancel } from "../Cancel/ButtonCancel";
+import { ButtonProps } from "../../../helpers/interface";
 import styles from "./styles.module.scss";
 
-export const ButtonEdit = ({
-	title,
-	id,
-	url,
-	onChange,
-	isActive,
-}: ButtonProps) => {
+export const ButtonEdit = ({ title, id, url, onChange }: ButtonProps) => {
 	const { edit, icon } = styles;
 
-	const editElement = () => onChange(true, []);
-
-	const cancelElement: FuncButtonProps = (state, newList) =>
-		onChange(state, newList);
+	const editElement = () => onChange([]);
 
 	return (
-		<>
-			{isActive ? (
-				<ButtonCancel title='Restore' onChange={cancelElement} />
-			) : (
-				<Tooltip
-					disableFocusListener
-					title={title}
-					onClick={editElement}
-					className={edit}>
-					<IconButton>
-						<EditIcon className={icon} />
-					</IconButton>
-				</Tooltip>
-			)}
-		</>
+		<Tooltip
+			disableFocusListener
+			title={title}
+			onClick={editElement}
+			className={edit}>
+			<IconButton>
+				<EditIcon className={icon} />
+			</IconButton>
+		</Tooltip>
 	);
 };

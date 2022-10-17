@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Tooltip, IconButton } from "@mui/material";
 import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
-import { ButtonProps } from "../../../helpers/interface";
+import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { request } from "../../../helpers/request";
 import ContactsContext from "../../ContactsList/context";
 import classNames from "classnames";
@@ -10,7 +10,8 @@ import styles from "./styles.module.scss";
 const cx = classNames.bind(styles);
 
 interface ButtonSaveProps extends ButtonProps {
-	formValues: object;
+	formValues: ContactElement;
+	index: number;
 }
 
 export const ButtonSave = ({
@@ -20,6 +21,7 @@ export const ButtonSave = ({
 	onChange,
 	isActive,
 	formValues,
+	index,
 }: ButtonSaveProps) => {
 	const { contacts } = useContext(ContactsContext);
 	const { save, disabled, icon } = styles;
@@ -33,10 +35,9 @@ export const ButtonSave = ({
 		};
 
 		request(saveUrl, params).then((res) => {
-			const item = { ...formValues, ...res };
-			const arr: never[] = [].concat(item);
-			const newList = [...contacts, ...arr];
-			onChange(false, newList);
+			let newContacts = contacts;
+			newContacts[index] = formValues;
+			onChange(newContacts);
 		});
 	};
 
