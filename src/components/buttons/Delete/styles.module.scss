@@ -1,5 +1,3 @@
-@import "../buttons";
-
-.delete {
-	@include buttons();
+.remove {
+	@include button-icon($active-red);
 }

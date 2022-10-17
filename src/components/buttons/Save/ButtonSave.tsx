@@ -1,14 +1,16 @@
-import { useState, MutableRefObject } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useContext } from "react";
 import { Tooltip, IconButton } from "@mui/material";
-import LibraryAddCheckRoundedIcon from "@mui/icons-material/LibraryAddCheckRounded";
+import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
 import { ButtonProps } from "../../../helpers/interface";
 import { request } from "../../../helpers/request";
-import { getContacts, setContacts } from "../../../store/slices/contacts";
-// import styles from "./styles.module.scss";
+import ContactsContext from "../../ContactsList/context";
+import classNames from "classnames";
+import styles from "./styles.module.scss";
+
+const cx = classNames.bind(styles);
 
 interface ButtonSaveProps extends ButtonProps {
-	form: MutableRefObject<null>;
+	formValues: object;
 }
 
 export const ButtonSave = ({
@@ -16,31 +18,41 @@ export const ButtonSave = ({
 	id,
 	url,
 	onChange,
-	form,
+	isActive,
+	formValues,
 }: ButtonSaveProps) => {
-	const [isSave, setIsSave] = useState(false);
-	const dispatch = useDispatch();
-	const contacts = useSelector(getContacts);
+	const { contacts } = useContext(ContactsContext);
+	const { save, disabled, icon } = styles;
 
 	const saveElement = () => {
-		// if (isSave) {
 		const saveUrl = url + "/" + id;
-		const formref = form.current || undefined;
-		const formData = new FormData(formref);
+		const data = JSON.stringify(formValues);
 		const params = {
 			method: "PUT",
-			body: formData,
+			body: data,
 		};
-		request(saveUrl, params).then((res) => console.log("response", res));
-		onChange(true);
-		// return setIsSave(!isSave);
-		// }
+
+		request(saveUrl, params).then((res) => {
+			const item = { ...formValues, ...res };
+			const arr: never[] = [].concat(item);
+			const newList = [...contacts, ...arr];
+			onChange(false, newList);
+		});
 	};
 
+	const itemStyles = cx({
+		[save]: true,
+		[disabled]: !isActive,
+	});
+
 	return (
-		<Tooltip disableFocusListener title={title} onClick={saveElement}>
+		<Tooltip
+			disableFocusListener
+			title={title}
+			onClick={saveElement}
+			className={itemStyles}>
 			<IconButton type='submit'>
-				<LibraryAddCheckRoundedIcon />
+				<AddCheckIcon className={icon} />
 			</IconButton>
 		</Tooltip>
 	);

@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export interface PageProps {
 	title: string;
 }
@@ -19,7 +21,7 @@ export interface ContactElement {
 }
 
 export interface FuncButtonProps {
-	(state: boolean, updateList?: never[]): void;
+	(state: boolean, updateList: SetStateAction<never[]>): void;
 }
 
 export interface ButtonProps {
@@ -27,4 +29,5 @@ export interface ButtonProps {
 	id?: number;
 	url?: string;
 	onChange: FuncButtonProps;
+	isActive?: boolean;
 }

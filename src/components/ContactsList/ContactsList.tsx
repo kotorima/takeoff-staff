@@ -15,7 +15,6 @@ export const ContactsList = () => {
 	useEffect(() => {
 		request(url).then((data) => {
 			setListContacts(data);
-			console.log(data);
 		});
 	}, [url]);
 

@@ -1,32 +1,45 @@
-import { useState, useContext, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect, FormEvent } from "react";
 import { Input, FormHelperText, FormControl } from "@mui/material";
-import ContactsContext from "../ContactsList/context";
 
 interface Props {
-	defaultValue: string;
+	defaultValue?: string;
 	type: string;
 	name: string;
 	helper?: string;
 	className?: string;
 	id: number;
+	cancel?: boolean;
+	getValue?: (value: { [field: string]: string }) => void | undefined;
 }
 
 export const CustomInput = ({
-	defaultValue,
+	defaultValue = "",
 	className,
 	type,
 	helper,
 	id,
 	name,
+	getValue,
+	cancel,
 }: Props) => {
-	const { setListContacts } = useContext(ContactsContext);
 	const inputControl = "helper-text-" + name + "-" + id;
+	const [value, setValue] = useState(defaultValue);
+	const [change, setChange] = useState(false);
 
 	useEffect(() => {
-		// console.log(inputControl);
-		// console.log("id: ", id);
-	}, []);
+		if (change) {
+			setValue(defaultValue);
+			setChange(false);
+		}
+	}, [cancel]);
+
+	const changeValue = (event: FormEvent) => {
+		const target = event.target as HTMLInputElement;
+		const newValue = target.value;
+		if (getValue) getValue({ [name]: newValue });
+		setValue(newValue);
+		setChange(true);
+	};
 
 	return (
 		<FormControl variant='standard'>
@@ -36,8 +49,9 @@ export const CustomInput = ({
 				name={name}
 				fullWidth
 				disableUnderline
-				defaultValue={defaultValue}
 				aria-describedby={inputControl}
+				value={value}
+				onChange={changeValue}
 			/>
 			<FormHelperText id={inputControl}>{helper}</FormHelperText>
 		</FormControl>

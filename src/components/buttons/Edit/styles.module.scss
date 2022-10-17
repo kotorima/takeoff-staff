@@ -1,5 +1,4 @@
-@import "../buttons";
-
 .edit {
-	@include buttons();
+	@include button-icon($active-blue);
+	transform: rotateX(90);
 }

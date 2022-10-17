@@ -4,10 +4,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { request } from "../../../helpers/request";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import ContactsContext from "../../ContactsList/context";
-// import styles from "./styles.module.scss";
+import styles from "./styles.module.scss";
 
 export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 	const { contacts } = useContext(ContactsContext);
+	const { remove, icon } = styles;
 
 	const removeElement = () => {
 		const deleteUrl = url + "/" + id;
@@ -23,9 +24,13 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 		});
 	};
 	return (
-		<Tooltip disableFocusListener title={title} onClick={removeElement}>
+		<Tooltip
+			className={remove}
+			disableFocusListener
+			title={title}
+			onClick={removeElement}>
 			<IconButton>
-				<DeleteIcon />
+				<DeleteIcon className={icon} />
 			</IconButton>
 		</Tooltip>
 	);

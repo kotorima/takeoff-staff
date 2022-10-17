@@ -53,3 +53,34 @@ $html-font-size: 16px;
 		margin-top: 8px;
 	}
 }
+
+@mixin buttons() {
+	.disabled {
+		pointer-events: none;
+	}
+}
+
+@mixin button-icon($color) {
+	&:has(.icon) {
+		padding: 8px;
+		border-radius: 50%;
+		background-color: rgba($color: $color, $alpha: 0);
+		min-width: auto;
+
+		&:hover {
+			background-color: rgba($color: $color, $alpha: 0.3);
+		}
+	}
+
+	.icon {
+		fill: $color;
+	}
+
+	&.disabled {
+		pointer-events: none;
+
+		.icon {
+			fill: $gray;
+		}
+	}
+}
