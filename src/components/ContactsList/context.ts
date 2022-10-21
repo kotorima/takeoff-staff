@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { ContactElement } from "../../helpers/interface";
 
 export interface ContextProps {

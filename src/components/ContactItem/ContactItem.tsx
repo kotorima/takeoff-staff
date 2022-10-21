@@ -1,12 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
-import ContactsContext from "../ContactsList/context";
 import { CustomInput } from "components/CustomInput/CustomInput";
 import { ContactElement, FuncButtonProps } from "../../helpers/interface";
 import { getApiUrl } from "../../store/slices/apiUrl";
+import { getContacts, setContacts } from "../../store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 const cx = classNames.bind(styles);
@@ -22,11 +22,10 @@ export const ContactItem = ({
 	id,
 	index,
 }: ContactItemProps) => {
+	const contacts = useSelector(getContacts);
 	const [show, setShow] = useState(true);
-	const [list, setList] = useState<ContactElement[]>([]);
+	const [list, setList] = useState<ContactElement[]>(contacts);
 	const [edit, setEdit] = useState(false);
-	const { item, input, hide, wrapper, left, disabled } = styles;
-	const { setListContacts } = useContext(ContactsContext);
 	const url = useSelector(getApiUrl) + "/contacts";
 	const [formValues, setFormValues] = useState({
 		name: name,
@@ -34,20 +33,24 @@ export const ContactItem = ({
 		phone: phone,
 		id: id,
 	});
+	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	const deleteElem: FuncButtonProps = (newList) => {
+	useEffect(() => console.log("update"), [list]);
+
+	const deleteElement: FuncButtonProps = (newList) => {
 		setShow(false);
 		setList(newList);
 	};
 
-	const editElem: FuncButtonProps = () => setEdit(true);
+	const editElement: FuncButtonProps = () => setEdit(true);
 
 	const saveElement: FuncButtonProps = (newList) => {
 		setEdit(false);
-		setListContacts(newList);
+		setList(newList);
+		setContacts(newList);
 	};
 
-	const cancelElem: FuncButtonProps = () => {
+	const cancelElement: FuncButtonProps = () => {
 		setEdit(false);
 	};
 
@@ -55,7 +58,9 @@ export const ContactItem = ({
 		setFormValues({ ...formValues, ...value });
 	};
 
-	const transitionEnd = () => setListContacts(list);
+	const transitionEnd = () => {
+		setContacts(list);
+	};
 
 	const transitionNames = {
 		enterActive: item,
@@ -84,42 +89,42 @@ export const ContactItem = ({
 						defaultValue={name}
 						type='text'
 						name='name'
-						helper='Some important helper text'
 						id={id}
 						getValue={getValue}
 						restore={edit}
+						required={true}
 					/>
 					<CustomInput
 						className={input}
 						defaultValue={phone}
 						type='tel'
 						name='phone'
-						helper='Some important helper text'
 						id={id}
 						getValue={getValue}
 						restore={edit}
+						required={true}
 					/>
 					<CustomInput
 						className={input}
 						defaultValue={email}
 						type='email'
 						name='email'
-						helper='Some important helper text'
 						id={id}
 						getValue={getValue}
 						restore={edit}
+						required={true}
 					/>
 					<div className={left}>
 						<ButtonDelete
 							title='Delete'
 							id={id}
 							url={url}
-							onChange={deleteElem}
+							onChange={deleteElement}
 						/>
 						{edit ? (
-							<ButtonCancel title='Restore' onChange={cancelElem} />
+							<ButtonCancel title='Restore' onChange={cancelElement} />
 						) : (
-							<ButtonEdit title='Edit' onChange={editElem} />
+							<ButtonEdit title='Edit' onChange={editElement} />
 						)}
 						<ButtonSave
 							title='Save'

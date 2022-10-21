@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initialState from "../initialState";
-import type { RootState } from "../generateState";
+// import type { RootState } from "../generateState";
+import { StateProps } from "helpers/interface";
 
 export const authSlice = createSlice({
 	name: "auth",
@@ -16,6 +17,6 @@ export const authSlice = createSlice({
 
 export const { setCredentials } = authSlice.actions;
 
-export const getUser = ({ auth }: RootState) => auth.user;
+export const getUser = ({ auth }: StateProps) => auth.user;
 
 export default authSlice.reducer;

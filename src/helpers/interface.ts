@@ -1,5 +1,8 @@
+import { ReactNode } from "react";
+
 export interface PageProps {
 	title: string;
+	children?: ReactNode;
 }
 
 export interface User {
@@ -28,4 +31,14 @@ export interface ButtonProps {
 	url?: string;
 	onChange: FuncButtonProps;
 	isActive?: boolean;
+}
+
+export interface StateProps {
+	contacts: ContactElement[];
+	apiUrl: string;
+	auth: {
+		user: string | null;
+		accessToken: string | null;
+		refreshToken: string | null;
+	};
 }

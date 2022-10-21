@@ -1,17 +1,14 @@
-import { useEffect } from "react";
-import addTitlePage from "../helpers/addTitlePage";
 import { PageProps } from "../helpers/interface";
+import { PageBasis } from "../components/PageBasis";
 import { Form } from "../components/forms";
 
 const AuthorizationPage = ({ title }: PageProps) => {
-	useEffect(() => {
-		addTitlePage(title);
-	}, [title]);
-
 	return (
-		<div>
-			<Form show='up' />
-		</div>
+		<PageBasis title={title}>
+			<div>
+				<Form show='up' />
+			</div>
+		</PageBasis>
 	);
 };
 
