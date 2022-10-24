@@ -11,6 +11,9 @@ interface Props {
 	restore?: boolean;
 	required?: boolean;
 	getValue?: (value: { [field: string]: string }) => void | undefined;
+	placeholder?: string;
+	reset?: boolean;
+	setReset?: (value: boolean) => void;
 }
 
 export const CustomInput = ({
@@ -23,26 +26,28 @@ export const CustomInput = ({
 	getValue,
 	restore,
 	required = false,
+	placeholder = "",
+	reset = false,
+	setReset = () => false,
 }: Props) => {
 	const inputControl = "helper-text-" + name + "-" + id;
 	const [value, setValue] = useState(defaultValue);
 	const [change, setChange] = useState(false);
 	const [message, setMessage] = useState("");
-	// 'Some important helper text'
-	// type StateType = {
-	// 	count: number
-	//   }
 
-	//   function reducer(state: StateType, action: ActionType) {
-	// 	...
-	//   }
-	// const [state, dispatch] = useReducer(reducer, { count: initialCount });
 	useEffect(() => {
 		if (change) {
 			setValue(defaultValue);
 			setChange(false);
 		}
 	}, [restore]);
+
+	useEffect(() => {
+		if (reset) {
+			setValue("");
+			setReset(false);
+		}
+	}, [reset, setReset]);
 
 	const changeValue = (event: FormEvent) => {
 		const target = event.target as HTMLInputElement;
@@ -64,6 +69,7 @@ export const CustomInput = ({
 				value={value}
 				onChange={changeValue}
 				required={required}
+				placeholder={placeholder}
 			/>
 			<FormHelperText id={inputControl}>{message}</FormHelperText>
 		</FormControl>

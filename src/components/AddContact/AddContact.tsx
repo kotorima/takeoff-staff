@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
@@ -16,8 +16,9 @@ export const AddContact = () => {
 	const [formValues, setFormValues] = useState({});
 	const url = useSelector(getApiUrl) + "/contacts";
 	const { input, wrapper } = styles;
+	const [reset, setReset] = useState(false);
 
-	const addElement = () => {
+	const addElement = (event: FormEvent) => {
 		const data = JSON.stringify(formValues);
 		const params = {
 			method: "POST",
@@ -27,48 +28,48 @@ export const AddContact = () => {
 		request(url, params).then((res) => {
 			let newList = [...contacts];
 			newList.unshift(res);
-			return dispatch(setContacts(newList));
+			dispatch(setContacts(newList));
+			setReset(true);
 		});
+
+		event.preventDefault();
 	};
 
 	const getValue = (value: object) => {
+		console.log(value);
 		setFormValues({ ...formValues, ...value });
+	};
+
+	const commonInputProps = {
+		className: input,
+		getValue: getValue,
+		required: true,
+		reset: reset,
 	};
 
 	return (
 		<div>
-			<Box
-				component='form'
-				onSubmit={(e) => e.preventDefault()}
-				className={wrapper}
-			>
+			<Box component='form' onSubmit={addElement} className={wrapper}>
 				<CustomInput
-					className={input}
 					type='text'
 					name='name'
-					getValue={getValue}
-					required={true}
+					placeholder='Full Name'
+					setReset={(val) => setReset(val)}
+					{...commonInputProps}
 				/>
 				<CustomInput
-					className={input}
 					type='tel'
 					name='phone'
-					getValue={getValue}
-					required={true}
+					placeholder='Phone number'
+					{...commonInputProps}
 				/>
 				<CustomInput
-					className={input}
 					type='email'
 					name='email'
-					getValue={getValue}
-					required={true}
+					placeholder='Email Address'
+					{...commonInputProps}
 				/>
-				<Button
-					type='submit'
-					onClick={addElement}
-					variant='contained'
-					endIcon={<AddCircleIcon />}
-				>
+				<Button type='submit' variant='contained' endIcon={<AddCircleIcon />}>
 					Add Contact
 				</Button>
 			</Box>

@@ -70,6 +70,13 @@ export const ContactItem = ({
 		[item]: true,
 		[disabled]: !edit,
 	});
+	const commonInputProps = {
+		className: input,
+		getValue: getValue,
+		required: true,
+		restore: edit,
+		id: id,
+	};
 
 	return (
 		<CSSTransition
@@ -86,34 +93,22 @@ export const ContactItem = ({
 					className={wrapper}
 				>
 					<CustomInput
-						className={input}
 						defaultValue={name}
 						type='text'
 						name='name'
-						id={id}
-						getValue={getValue}
-						restore={edit}
-						required={true}
+						{...commonInputProps}
 					/>
 					<CustomInput
-						className={input}
 						defaultValue={phone}
 						type='tel'
 						name='phone'
-						id={id}
-						getValue={getValue}
-						restore={edit}
-						required={true}
+						{...commonInputProps}
 					/>
 					<CustomInput
-						className={input}
 						defaultValue={email}
 						type='email'
 						name='email'
-						id={id}
-						getValue={getValue}
-						restore={edit}
-						required={true}
+						{...commonInputProps}
 					/>
 					<div className={left}>
 						<ButtonDelete

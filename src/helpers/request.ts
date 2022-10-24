@@ -18,5 +18,7 @@ export const request: Props = (url, params) => {
 	};
 	const data = { ...defaultData, ...params };
 
-	return fetch(url, data).then((resp) => resp.json());
+	return fetch(url, data)
+		.then((resp) => resp.json())
+		.catch((error) => console.error(error));
 };
