@@ -7,8 +7,9 @@ interface Props {
 	name: string;
 	helper?: string;
 	className?: string;
-	id: number;
+	id?: number;
 	restore?: boolean;
+	required?: boolean;
 	getValue?: (value: { [field: string]: string }) => void | undefined;
 }
 
@@ -21,11 +22,21 @@ export const CustomInput = ({
 	name,
 	getValue,
 	restore,
+	required = false,
 }: Props) => {
 	const inputControl = "helper-text-" + name + "-" + id;
 	const [value, setValue] = useState(defaultValue);
 	const [change, setChange] = useState(false);
+	const [message, setMessage] = useState("");
+	// 'Some important helper text'
+	// type StateType = {
+	// 	count: number
+	//   }
 
+	//   function reducer(state: StateType, action: ActionType) {
+	// 	...
+	//   }
+	// const [state, dispatch] = useReducer(reducer, { count: initialCount });
 	useEffect(() => {
 		if (change) {
 			setValue(defaultValue);
@@ -52,8 +63,9 @@ export const CustomInput = ({
 				aria-describedby={inputControl}
 				value={value}
 				onChange={changeValue}
+				required={required}
 			/>
-			<FormHelperText id={inputControl}>{helper}</FormHelperText>
+			<FormHelperText id={inputControl}>{message}</FormHelperText>
 		</FormControl>
 	);
 };

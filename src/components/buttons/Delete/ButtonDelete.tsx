@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { request } from "../../../helpers/request";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
-import ContactsContext from "../../ContactsList/context";
+import { getContacts } from "../../../store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
-	const { contacts } = useContext(ContactsContext);
+	const contacts = useSelector(getContacts);
 	const { remove, icon } = styles;
 
 	const removeElement = () => {
@@ -27,7 +27,8 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 			className={remove}
 			disableFocusListener
 			title={title}
-			onClick={removeElement}>
+			onClick={removeElement}
+		>
 			<IconButton>
 				<DeleteIcon className={icon} />
 			</IconButton>
