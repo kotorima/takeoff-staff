@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
@@ -23,6 +23,7 @@ export const ContactItem = ({
 	index,
 }: ContactItemProps) => {
 	const contacts = useSelector(getContacts);
+	const dispatch = useDispatch();
 	const [show, setShow] = useState(true);
 	const [list, setList] = useState<ContactElement[]>(contacts);
 	const [edit, setEdit] = useState(false);
@@ -35,8 +36,6 @@ export const ContactItem = ({
 	});
 	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	useEffect(() => console.log("update"), [list]);
-
 	const deleteElement: FuncButtonProps = (newList) => {
 		setShow(false);
 		setList(newList);
@@ -47,7 +46,7 @@ export const ContactItem = ({
 	const saveElement: FuncButtonProps = (newList) => {
 		setEdit(false);
 		setList(newList);
-		setContacts(newList);
+		dispatch(setContacts(newList));
 	};
 
 	const cancelElement: FuncButtonProps = () => {
@@ -59,7 +58,7 @@ export const ContactItem = ({
 	};
 
 	const transitionEnd = () => {
-		setContacts(list);
+		dispatch(setContacts(list));
 	};
 
 	const transitionNames = {
@@ -78,12 +77,14 @@ export const ContactItem = ({
 			classNames={transitionNames}
 			timeout={500}
 			unmountOnExit
-			onExited={() => transitionEnd()}>
+			onExited={() => transitionEnd()}
+		>
 			<div className={itemStyles}>
 				<Box
 					component='form'
 					onSubmit={(e) => e.preventDefault()}
-					className={wrapper}>
+					className={wrapper}
+				>
 					<CustomInput
 						className={input}
 						defaultValue={name}

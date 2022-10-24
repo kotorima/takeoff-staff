@@ -3,7 +3,7 @@ import { SettingsBackupRestoreRounded as BackupRestoreIcon } from "@mui/icons-ma
 import { ButtonProps } from "../../../helpers/interface";
 import styles from "./styles.module.scss";
 
-export const ButtonCancel = ({ title, id, url, onChange }: ButtonProps) => {
+export const ButtonCancel = ({ title, onChange }: ButtonProps) => {
 	const { cancel, icon } = styles;
 
 	const cancelElement = () => onChange([]);
@@ -13,7 +13,8 @@ export const ButtonCancel = ({ title, id, url, onChange }: ButtonProps) => {
 			disableFocusListener
 			title={title}
 			onClick={cancelElement}
-			className={cancel}>
+			className={cancel}
+		>
 			<IconButton>
 				<BackupRestoreIcon className={icon} />
 			</IconButton>

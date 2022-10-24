@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
 import { ButtonProps, ContactElement } from "../../../helpers/interface";
 import { request } from "../../../helpers/request";
-import ContactsContext from "../../ContactsList/context";
+import { getContacts } from "../../../store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 
@@ -23,7 +23,7 @@ export const ButtonSave = ({
 	formValues,
 	index,
 }: ButtonSaveProps) => {
-	const { contacts } = useContext(ContactsContext);
+	const contacts = useSelector(getContacts);
 	const { save, disabled, icon } = styles;
 
 	const saveElement = () => {
@@ -35,8 +35,8 @@ export const ButtonSave = ({
 		};
 
 		request(saveUrl, params).then((res) => {
-			let newContacts = contacts;
-			newContacts[index] = formValues;
+			let newContacts = [...contacts];
+			newContacts[index] = res;
 			onChange(newContacts);
 		});
 	};
@@ -51,7 +51,8 @@ export const ButtonSave = ({
 			disableFocusListener
 			title={title}
 			onClick={saveElement}
-			className={itemStyles}>
+			className={itemStyles}
+		>
 			<IconButton type='submit'>
 				<AddCheckIcon className={icon} />
 			</IconButton>

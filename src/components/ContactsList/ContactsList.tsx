@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { ContactItem } from "../ContactItem";
 import { request } from "../../helpers";
-import { ContactElement } from "../../helpers/interface";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import { setContacts, getContacts } from "../../store/slices/contacts";
 import styles from "./styles.module.scss";
@@ -16,13 +15,12 @@ export const ContactsList = () => {
 
 	useEffect(() => {
 		request(url).then((data) => {
-			setContacts(data);
+			dispatch(setContacts(data));
 		});
 	}, [url]);
 
 	useEffect(() => {
 		console.log("update in list", contacts);
-		setContacts(getContacts);
 	}, [contacts]);
 
 	return (
