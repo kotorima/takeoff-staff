@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initialState from "../initialState";
-// import type { RootState } from "../generateState";
 import { StateProps } from "../../helpers/interface";
 
 export const contactsSlice = createSlice({
