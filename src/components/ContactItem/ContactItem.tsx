@@ -49,17 +49,12 @@ export const ContactItem = ({
 		dispatch(setContacts(newList));
 	};
 
-	const cancelElement: FuncButtonProps = () => {
-		setEdit(false);
-	};
+	const cancelElement: FuncButtonProps = () => setEdit(false);
 
-	const getValue = (value: object) => {
+	const getValue = (value: object) =>
 		setFormValues({ ...formValues, ...value });
-	};
 
-	const transitionEnd = () => {
-		dispatch(setContacts(list));
-	};
+	const transitionEnd = () => dispatch(setContacts(list));
 
 	const transitionNames = {
 		enterActive: item,
@@ -72,10 +67,10 @@ export const ContactItem = ({
 	});
 	const commonInputProps = {
 		className: input,
-		getValue: getValue,
+		getValue,
 		required: true,
 		restore: edit,
-		id: id,
+		id,
 	};
 
 	return (

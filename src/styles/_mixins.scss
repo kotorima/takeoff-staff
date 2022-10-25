@@ -1,107 +1,93 @@
 @use "sass:math";
 $html-font-size: 16px;
-
 @function stripUnit($value) {
-	@return math.div($value, $value * 0 + 1);
+    @return math.div($value, $value * 0 + 1);
 }
 
 @function rem($pxValue) {
-	@return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
+    @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
 }
 
 @mixin table-row {
-	display: grid;
-	grid-template-columns: repeat(3, 1.5fr) 1fr;
-	grid-gap: 15px;
-	padding: 20px;
-	transform: translateY(-1px);
-	box-shadow: inset 0 0 0 1px $light-gray;
-	background: $main-background;
-
-	& .left {
-		justify-content: flex-end;
-		justify-self: flex-end;
-	}
+    display: grid;
+    grid-template-columns: repeat(3, 1.5fr) 1fr;
+    grid-gap: 15px;
+    padding: 20px;
+    transform: translateY(-1px);
+    box-shadow: inset 0 0 0 1px $light-gray;
+    background: $main-background;
+    & .left {
+        justify-content: flex-end;
+        justify-self: flex-end;
+    }
 }
 
 @mixin auth-form() {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-
-	.legend,
-	.link {
-		text-align: center;
-	}
-
-	.row {
-		display: flex;
-		width: 100%;
-
-		.input:last-child {
-			margin-left: 10px;
-		}
-	}
-
-	.input,
-	.button {
-		margin-top: 10px;
-	}
-
-	.link {
-		margin-top: 8px;
-	}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    .legend,
+    .link {
+        text-align: center;
+    }
+    .row {
+        display: flex;
+        width: 100%;
+        .input:last-child {
+            margin-left: 10px;
+        }
+    }
+    .input,
+    .button {
+        margin-top: 10px;
+    }
+    .link {
+        margin-top: 8px;
+    }
 }
 
 @mixin buttons() {
-	.disabled {
-		pointer-events: none;
-	}
+    .disabled {
+        pointer-events: none;
+    }
 }
 
 @mixin button-icon($color) {
-	&:has(.icon) {
-		padding: 8px;
-		border-radius: 50%;
-		background-color: rgba($color: $color, $alpha: 0);
-		min-width: auto;
-
-		&:hover {
-			background-color: rgba($color: $color, $alpha: 0.3);
-		}
-	}
-
-	.icon {
-		fill: $color;
-	}
-
-	&.disabled {
-		pointer-events: none;
-
-		.icon {
-			fill: $gray;
-		}
-	}
+    &:has(.icon) {
+        padding: 8px;
+        border-radius: 50%;
+        background-color: rgba($color: $color, $alpha: 0);
+        min-width: auto;
+        &:hover {
+            background-color: rgba($color: $color, $alpha: 0.3);
+        }
+    }
+    .icon {
+        fill: $color;
+    }
+    &.disabled {
+        pointer-events: none;
+        .icon {
+            fill: $gray;
+        }
+    }
 }
 
 @mixin input {
-	input {
-		color: $basic-text;
-		padding: 10px 14px;
-		box-shadow: 0 0 0 1px $gray;
-		transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-		&:focus {
-			box-shadow: 0 0 0 1px $active-blue;
-		}
-
-		&:hover {
-			box-shadow: 0 0 0 1px $dark-gray;
-		}
-
-		&:invalid {
-			box-shadow: 0 0 0 1px $active-red;
-		}
-	}
+    input {
+        color: $basic-text;
+        padding: 10px 14px;
+        box-shadow: 0 0 0 1px $gray;
+        transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        &:focus {
+            box-shadow: 0 0 0 1px $active-blue;
+        }
+        &:hover {
+            box-shadow: 0 0 0 1px $dark-gray;
+        }
+        &:invalid {
+            box-shadow: 0 0 0 1px $gray;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { ContactItem } from "../ContactItem";
@@ -18,10 +18,6 @@ export const ContactsList = () => {
 			dispatch(setContacts(data));
 		});
 	}, [url]);
-
-	useEffect(() => {
-		console.log("update in list", contacts);
-	}, [contacts]);
 
 	return (
 		<div>

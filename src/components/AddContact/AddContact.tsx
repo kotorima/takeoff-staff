@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
@@ -6,9 +6,7 @@ import { CustomInput } from "components/CustomInput/CustomInput";
 import { request } from "../../helpers";
 import { getApiUrl } from "../../store/slices/apiUrl";
 import { getContacts, setContacts } from "../../store/slices/contacts";
-import classNames from "classnames";
 import styles from "./styles.module.scss";
-const cx = classNames.bind(styles);
 
 export const AddContact = () => {
 	const contacts = useSelector(getContacts);
@@ -36,15 +34,14 @@ export const AddContact = () => {
 	};
 
 	const getValue = (value: object) => {
-		console.log(value);
 		setFormValues({ ...formValues, ...value });
 	};
 
 	const commonInputProps = {
 		className: input,
-		getValue: getValue,
+		getValue,
 		required: true,
-		reset: reset,
+		reset,
 	};
 
 	return (

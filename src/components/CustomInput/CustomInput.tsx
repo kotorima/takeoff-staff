@@ -20,7 +20,7 @@ export const CustomInput = ({
 	defaultValue = "",
 	className,
 	type,
-	helper,
+	helper = "",
 	id,
 	name,
 	getValue,
@@ -33,7 +33,7 @@ export const CustomInput = ({
 	const inputControl = "helper-text-" + name + "-" + id;
 	const [value, setValue] = useState(defaultValue);
 	const [change, setChange] = useState(false);
-	const [message, setMessage] = useState("");
+	const [message, setMessage] = useState(helper);
 
 	useEffect(() => {
 		if (change) {
@@ -70,6 +70,7 @@ export const CustomInput = ({
 				onChange={changeValue}
 				required={required}
 				placeholder={placeholder}
+				error={message.length === 0 ? false : true}
 			/>
 			<FormHelperText id={inputControl}>{message}</FormHelperText>
 		</FormControl>
