@@ -1,5 +1,5 @@
 import { useLocation, Navigate } from "react-router-dom";
-import { useAuth } from "../../helpers/auth";
+import { useAuth } from "helpers/auth";
 
 interface Props {
 	children: JSX.Element;

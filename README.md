@@ -2,9 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### `npm install`
-
-### `npm i json-server --force`
+### `npm install --force`
 
 ## Available Scripts
 
@@ -23,3 +21,8 @@ http://localhost:8000
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Login details
+
+`email: "user@email.com"`
+`password: "YQnq8Xz5CvXYNu6O2LO"`

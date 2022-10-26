@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { AppBar, Link } from "@mui/material";
 import { Logout, Login } from "@mui/icons-material";
+import { useAuth } from "helpers/auth";
 import styles from "./styles.module.scss";
 
 export const Header = () => {
-	const [auth, setAuth] = useState(true);
 	const { header, link, button, wrapper } = styles;
 	const pages = ["Contacts"];
+	let auth = useAuth();
 
 	const logout = () => {};
 
@@ -18,7 +18,7 @@ export const Header = () => {
 						{page}
 					</Link>
 				))}
-				{auth ? (
+				{auth.user ? (
 					<Link className={button} component='button' onClick={logout}>
 						<Logout />
 						Logout

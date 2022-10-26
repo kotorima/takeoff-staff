@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { authProvider } from "../../helpers/auth";
+import { authProvider } from "helpers/auth";
 import AuthContext from "./AuthContext";
 
 interface Props {

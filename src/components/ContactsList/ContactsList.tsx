@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
+import { request } from "helpers";
+import { getApiUrl } from "store/slices/apiUrl";
+import { setContacts, getContacts } from "store/slices/contacts";
 import { ContactItem } from "../ContactItem";
-import { request } from "../../helpers";
-import { getApiUrl } from "../../store/slices/apiUrl";
-import { setContacts, getContacts } from "../../store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const ContactsList = () => {

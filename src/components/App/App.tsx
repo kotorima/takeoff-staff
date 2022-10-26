@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-// import AuthProvider from "../auth/AuthProvider";
-import { theme } from "../../helpers";
-import { Layout, Navigation } from "../../routes";
-import { setApi } from "../../store/slices/apiUrl";
-import "../../styles/basic.scss";
+import { theme } from "helpers";
+import { Layout, Navigation } from "routes";
+import { setApi } from "store/slices/apiUrl";
+import AuthProvider from "../auth/AuthProvider";
+import "styles/basic.scss";
 
 interface Props {
 	apiUrl: string;
@@ -19,15 +19,15 @@ export const App = ({ apiUrl }: Props) => {
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				{/* <AuthProvider> */}
-				<div className='page'>
-					<div className='wrapper'>
-						<Layout>
-							<Navigation />
-						</Layout>
+				<AuthProvider>
+					<div className='page'>
+						<div className='wrapper'>
+							<Layout>
+								<Navigation />
+							</Layout>
+						</div>
 					</div>
-				</div>
-				{/* </AuthProvider> */}
+				</AuthProvider>
 			</ThemeProvider>
 		</BrowserRouter>
 	);

@@ -1,4 +1,4 @@
-// import RequireAuth from "../components/auth/RequireAuth";
+import RequireAuth from "../components/auth/RequireAuth";
 import AuthorizationPage from "../pages/authorization";
 import ContactsPage from "../pages/contacts";
 import Redirect from "./Redirect";
@@ -12,7 +12,11 @@ const paths = [
 	{
 		path: "/contacts",
 		id: 2,
-		element: <ContactsPage title='Contacts' />,
+		element: (
+			<RequireAuth>
+				<ContactsPage title='Contacts' />
+			</RequireAuth>
+		),
 	},
 	{
 		path: "*",

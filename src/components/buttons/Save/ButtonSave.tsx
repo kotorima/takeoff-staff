@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
-import { ButtonProps, ContactElement } from "../../../helpers/interface";
-import { request } from "../../../helpers/request";
-import { getContacts } from "../../../store/slices/contacts";
+import { ButtonProps, ContactElement } from "helpers/interface";
+import { request } from "helpers/request";
+import { getContacts } from "store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 

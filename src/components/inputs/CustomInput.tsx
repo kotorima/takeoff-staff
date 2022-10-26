@@ -7,7 +7,7 @@ interface Props {
 	name: string;
 	helper?: string;
 	className?: string;
-	id?: number;
+	id?: number | string;
 	restore?: boolean;
 	required?: boolean;
 	getValue?: (value: { [field: string]: string }) => void | undefined;

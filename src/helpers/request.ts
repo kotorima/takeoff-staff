@@ -9,6 +9,18 @@ interface Props {
 	): Promise<any>;
 }
 
+async function send(req: Promise<any>) {
+	const response = await req;
+	let json = await response.json();
+
+	if (!response.ok) {
+		const error = { error: { code: response.status, message: json } };
+		json = error;
+	}
+
+	return json;
+}
+
 export const request: Props = (url, params) => {
 	const defaultData = {
 		method: "GET",
@@ -18,7 +30,5 @@ export const request: Props = (url, params) => {
 	};
 	const data = { ...defaultData, ...params };
 
-	return fetch(url, data)
-		.then((resp) => resp.json())
-		.catch((error) => console.error(error));
+	return send(fetch(url, data)).catch((error) => console.log(error));
 };
