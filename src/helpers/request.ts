@@ -1,3 +1,5 @@
+import { UserStorageProps } from "helpers/interface";
+import { getAccessToken } from "./auth";
 interface Props {
 	(
 		url: string,
@@ -22,12 +24,15 @@ async function send(req: Promise<any>) {
 }
 
 export const request: Props = (url, params) => {
+	const token = getAccessToken();
 	const defaultData = {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
 		},
 	};
+
 	const data = { ...defaultData, ...params };
 
 	return send(fetch(url, data)).catch((error) => console.log(error));

@@ -1,17 +1,38 @@
 import { FormEvent } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, TextField, Link, Typography, Box } from "@mui/material";
 import { FormProps } from "helpers/interface";
+import { request } from "helpers";
+import { getApiUrl } from "store/slices/apiUrl";
 import styles from "./styles.module.scss";
 
 export const SingUp = ({ show, onChange }: FormProps) => {
+	const url = useSelector(getApiUrl);
 	const { fup, row, input, legend, link, button } = styles;
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get("email"),
-			password: data.get("password"),
+		const formData = new FormData(event.currentTarget);
+		const data = {
+			firstname: formData.get("firstName"),
+			lastname: formData.get("lastName"),
+			email: formData.get("email"),
+			password: formData.get("password"),
+		};
+
+		const params = {
+			method: "POST",
+			body: JSON.stringify(data),
+		};
+
+		console.log(data);
+
+		request(url + "/signup", params).then((res) => {
+			console.log(res);
+
+			request(url + "/users").then((resp) => {
+				console.log("users", resp);
+			});
 		});
 	};
 
@@ -25,7 +46,8 @@ export const SingUp = ({ show, onChange }: FormProps) => {
 	};
 
 	return (
-		<Box component='form' onSubmit={handleSubmit} noValidate className={fup}>
+		<Box component='form' className={fup}>
+			{/* <Box component='form' onSubmit={handleSubmit} className={fup}> */}
 			<Typography component='h1' variant='h5' className={legend}>
 				Sign Up
 			</Typography>

@@ -16,11 +16,11 @@ module.exports = () => {
     const contactsData = arrayGenerator(elementForContactList, 20);
 
     const usersData = [{
-        email: "user@email.com",
-        password: "YQnq8Xz5CvXYNu6O2LO",
+        email: "useremail@gmail.com",
+        password: "$2a$10$wr978e3ROCBILuShV0gxy.UrYIisM3NIcs1ifnxaV2kC0pkSpeGSC", //bestPassw0rd
         firstname: "Maria",
+        id: 1221,
         lastname: "Yarkina",
-        id: casual.uuid,
     }, ];
 
     defineData("users", usersData);

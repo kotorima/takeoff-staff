@@ -1,19 +1,17 @@
-import { useContext } from "react";
-import AuthContext from "../components/auth/AuthContext";
+import { UserStorageProps } from "helpers/interface";
 
-export const useAuth = () => useContext(AuthContext);
+export const getUserFromStorage = () => {
+	const storage = localStorage.getItem("user");
+	const user: UserStorageProps | null =
+		typeof storage === "string" ? JSON.parse(storage) : null;
 
-export const authProvider = {
-	isAuthenticated: false,
-	signin(callback: VoidFunction) {
-		authProvider.isAuthenticated = true;
-		setTimeout(callback, 100); // fake async
-	},
-	signout(callback: VoidFunction) {
-		authProvider.isAuthenticated = false;
-		setTimeout(callback, 100);
-	},
+	return user;
 };
+export const removeUserFromStorage = () => localStorage.removeItem("user");
+export const setUserFromStorage = (user: UserStorageProps) =>
+	localStorage.setItem("user", JSON.stringify(user));
 
-export const getAccessToken = localStorage.getItem("access_token");
-export const getRefreshToken = localStorage.getItem("refresh_token");
+export const getAccessToken = () => {
+	const storage = getUserFromStorage();
+	return storage ? storage.token : null;
+};

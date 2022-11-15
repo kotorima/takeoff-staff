@@ -33,12 +33,34 @@ export interface ButtonProps {
 	isActive?: boolean;
 }
 
+export interface UserProps {
+	email: string;
+	firstname: string;
+	lastname: string;
+	id: number;
+	password?: string;
+}
+
+export interface AuthProps {
+	user: UserProps | null;
+	token: string | null;
+}
+
 export interface StateProps {
 	contacts: ContactElement[];
 	apiUrl: string;
-	auth: {
-		user: string | null;
-		accessToken: string | null;
-		refreshToken: string | null;
-	};
+	auth: AuthProps;
+}
+
+export interface UserStorageProps {
+	token: string;
+	userId: string | number;
+}
+
+export interface Resp {
+	(): Promise<void> | JSX.Element;
+}
+
+export interface Resp2 {
+	(callback: any): JSX.Element | null;
 }

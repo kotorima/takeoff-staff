@@ -1,12 +1,12 @@
-import { StateProps } from "../helpers/interface";
-import { getAccessToken, getRefreshToken } from "../helpers/auth";
+import { StateProps } from "helpers/interface";
+import { getAccessToken } from "helpers/auth";
+import type { RootState } from "store/generateState";
 
-const initialState: StateProps = {
+const initialState = {
 	apiUrl: "",
 	auth: {
 		user: null,
-		accessToken: getAccessToken,
-		refreshToken: getRefreshToken,
+		token: getAccessToken(),
 	},
 	contacts: [],
 };

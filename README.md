@@ -24,5 +24,5 @@ You will also see any lint errors in the console.
 
 ## Login details
 
-`email: "user@email.com"`
-`password: "YQnq8Xz5CvXYNu6O2LO"`
+`email: "useremail@gmail.com"`
+`password: "bestPassw0rd"`
