@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { request } from "helpers";
-import { ButtonProps, ContactElement } from "helpers/interface";
+import { ButtonProps, ContactElement } from "helpers/interfaces";
 import { getContacts } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 

@@ -1,6 +1,6 @@
 import { Tooltip, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { ButtonProps } from "helpers/interface";
+import { ButtonProps } from "helpers/interfaces";
 import styles from "./styles.module.scss";
 
 export const ButtonEdit = ({ title, onChange }: ButtonProps) => {

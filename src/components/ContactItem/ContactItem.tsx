@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
 import { CustomInput } from "components/inputs/CustomInput";
-import { ContactElement, FuncButtonProps } from "helpers/interface";
-import { getApiUrl } from "store/slices/apiUrl";
+import { ContactElement, FuncButtonProps } from "helpers/interfaces";
+import { baseApiUrl } from "api/getBaseApiUrl";
 import { getContacts, setContacts } from "store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
@@ -27,7 +27,7 @@ export const ContactItem = ({
 	const [show, setShow] = useState(true);
 	const [list, setList] = useState<ContactElement[]>(contacts);
 	const [edit, setEdit] = useState(false);
-	const url = useSelector(getApiUrl) + "/contacts";
+	const url = baseApiUrl + "/contacts";
 	const [formValues, setFormValues] = useState({
 		name: name,
 		email: email,

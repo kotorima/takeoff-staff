@@ -48,7 +48,6 @@ export interface AuthProps {
 
 export interface StateProps {
 	contacts: ContactElement[];
-	apiUrl: string;
 	auth: AuthProps;
 }
 
@@ -57,10 +56,12 @@ export interface UserStorageProps {
 	userId: string | number;
 }
 
-export interface Resp {
-	(): Promise<void> | JSX.Element;
+export interface UserResponseProps {
+	user: UserProps;
+	accessToken: string;
 }
 
-export interface Resp2 {
-	(callback: any): JSX.Element | null;
+export interface LoginRequestProps {
+	email: string;
+	password: string;
 }

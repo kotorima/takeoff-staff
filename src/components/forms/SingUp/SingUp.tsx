@@ -1,13 +1,11 @@
 import { FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, TextField, Link, Typography, Box } from "@mui/material";
-import { FormProps } from "helpers/interface";
+import { FormProps } from "helpers/interfaces";
 import { request } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
 import styles from "./styles.module.scss";
 
 export const SingUp = ({ show, onChange }: FormProps) => {
-	const url = useSelector(getApiUrl);
 	const { fup, row, input, legend, link, button } = styles;
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -27,10 +25,10 @@ export const SingUp = ({ show, onChange }: FormProps) => {
 
 		console.log(data);
 
-		request(url + "/signup", params).then((res) => {
+		request("/signup", params).then((res) => {
 			console.log(res);
 
-			request(url + "/users").then((resp) => {
+			request("/users").then((resp) => {
 				console.log("users", resp);
 			});
 		});

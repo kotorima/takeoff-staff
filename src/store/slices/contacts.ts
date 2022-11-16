@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import initialState from "../initialState";
-import { StateProps } from "../../helpers/interface";
+import { StateProps } from "helpers/interfaces";
 
-export const contactsSlice = createSlice({
+export const slice = createSlice({
 	name: "contacts",
 	initialState: initialState.contacts,
 
@@ -16,8 +16,8 @@ export const contactsSlice = createSlice({
 	},
 });
 
-export const { setContacts } = contactsSlice.actions;
+export const { setContacts } = slice.actions;
 
-export const getContacts = ({ contacts }: StateProps) => contacts;
+export const getContacts = (state: StateProps) => state.contacts;
 
-export default contactsSlice.reducer;
+export default slice.reducer;

@@ -2,13 +2,17 @@ import { useState, FormEvent, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Link, Typography, Box } from "@mui/material";
-import { FormProps, StateProps, UserProps } from "helpers/interface";
-import { setCredentials } from "store/slices/authSlice";
-import { request, useNavigatedFrom } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
-import { setUserFromStorage } from "helpers/auth";
+import {
+	FormProps,
+	StateProps,
+	UserProps,
+	LoginRequestProps,
+} from "helpers/interfaces";
+import { setAuthData } from "store/slices/auth";
+import { useNavigatedFrom } from "hooks";
+import { setUserFromStorage } from "helpers/localStorage";
 import { AuthInput } from "components/inputs";
-import { useLoginMutation, LoginRequest } from "api/auth";
+import { useLoginMutation } from "hooks/useApiRequest";
 import styles from "./styles.module.scss";
 
 // interface Fields {
@@ -16,16 +20,20 @@ import styles from "./styles.module.scss";
 // 	email: string;
 // }
 
+interface UserResponseProps {
+	user: UserProps;
+	accessToken: string;
+}
+
 export const SingIn = ({ show, onChange }: FormProps) => {
 	const fields = () => Object.assign({}, { password: "", email: "" });
-	const [helperTexts, setHelperTexts] = useState<LoginRequest>(fields());
+	const [helperTexts, setHelperTexts] = useState<LoginRequestProps>(fields());
 	// const [helperTexts, setHelperTexts] = useState<Fields>(fields());
 	const serverMessages = ["Cannot find user", "Incorrect password"];
 	const navigate = useNavigate();
 	const location = useLocation();
 	const navigatedFrom = useNavigatedFrom();
 	const dispatch = useDispatch();
-	const url = useSelector(getApiUrl);
 	const [login, { isLoading }] = useLoginMutation();
 
 	const { fin, input, legend, link, button } = styles;
@@ -40,7 +48,7 @@ export const SingIn = ({ show, onChange }: FormProps) => {
 		};
 
 		const params = {
-			url: `${url}/login`,
+			url: `login`,
 			body: data,
 		};
 
@@ -66,12 +74,12 @@ export const SingIn = ({ show, onChange }: FormProps) => {
 
 		login(params)
 			.unwrap()
-			.then((payload) => {
+			.then((payload: UserResponseProps) => {
 				console.log("fulfilled", payload);
 				const { user, accessToken } = payload;
 				if (user && accessToken) {
 					setUserFromStorage({ token: accessToken, userId: user.id });
-					dispatch(setCredentials({ token: accessToken, user: user }));
+					dispatch(setAuthData({ token: accessToken, user: user }));
 					// navigate(from);
 				} else {
 					console.log("cringe", payload);

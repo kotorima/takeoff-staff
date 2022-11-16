@@ -1,34 +1,23 @@
 import { Suspense, useEffect, useState } from "react";
-import { Routes, Route, useRoutes } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useAuth, useLoader } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
-import { useGetUserMutation } from "api/auth";
-import { setCredentials } from "store/slices/authSlice";
-import { getUserFromStorage, setUserFromStorage } from "helpers/auth";
-import { UserStorageProps, UserProps } from "helpers/interface";
+import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useAuth, useCheckAuth } from "hooks";
+import { useGetUserMutation } from "hooks/useApiRequest";
+import { setAuthData } from "store/slices/auth";
 import paths from "./paths";
-
-interface UserResponse {
-	user: UserProps;
-	token: string;
-}
 
 const PackageLocation = () => {
 	const auth = useAuth();
-	const [getUser, { data, isLoading, isSuccess }] = useGetUserMutation();
-	const storage = getUserFromStorage();
-	const url = useSelector(getApiUrl);
+	const [getUser] = useGetUserMutation();
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
-	const callback = (values: UserResponse) => dispatch(setCredentials(values));
-	const usePloader = () => useLoader(getUser, callback, url);
-	const loader = usePloader;
+	const loader = useCheckAuth;
 
 	useEffect(() => {
 		if (!auth.user) {
-			loader().then((res) => {
-				console.log(res);
+			loader(getUser).then((params) => {
+				console.log(params);
+				dispatch(setAuthData(params));
 				setIsLoaded(true);
 			});
 		}

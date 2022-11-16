@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 import { AppBar, Link } from "@mui/material";
 import { Logout, Login } from "@mui/icons-material";
-import { useAuth } from "helpers/useAuth";
+import { useAuth } from "hooks";
+import { setAuthData } from "store/slices/auth";
+import { removeUserFromStorage } from "helpers";
 import styles from "./styles.module.scss";
-import { setCredentials } from "store/slices/authSlice";
 
 export const Header = () => {
 	const { header, link, button, wrapper } = styles;
@@ -18,17 +19,16 @@ export const Header = () => {
 		{ title: "Contacts", path: "/contacts" },
 		{ title: "Authorization", path: "/authorization" },
 	];
-	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 	const { user } = useAuth();
-	let navigate = useNavigate();
 
 	const logout = () => {
 		const params = {
 			token: "",
 			user: null,
 		};
-		dispatch(setCredentials(params));
+		removeUserFromStorage();
+		dispatch(setAuthData(params));
 	};
 
 	return (

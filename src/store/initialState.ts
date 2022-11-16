@@ -1,12 +1,9 @@
-import { StateProps } from "helpers/interface";
-import { getAccessToken } from "helpers/auth";
-import type { RootState } from "store/generateState";
+import { getStorageToken } from "helpers/localStorage";
 
 const initialState = {
-	apiUrl: "",
 	auth: {
 		user: null,
-		token: getAccessToken(),
+		token: getStorageToken(),
 	},
 	contacts: [],
 };

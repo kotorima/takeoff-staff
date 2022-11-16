@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useLocation, useRoutes } from "react-router-dom";
-import { PageProps } from "helpers/interface";
+import { PageProps } from "helpers/interfaces";
 import { PageBasis } from "components/PageBasis";
 
 const NotFound = ({ title }: PageProps) => {

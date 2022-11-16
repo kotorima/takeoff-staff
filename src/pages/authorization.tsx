@@ -1,4 +1,4 @@
-import { PageProps } from "helpers/interface";
+import { PageProps } from "helpers/interfaces";
 import { PageBasis } from "components/PageBasis";
 import { Form } from "components/forms";
 

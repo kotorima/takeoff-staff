@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
 import { CustomInput } from "components/inputs/CustomInput";
 import { request } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
+import { baseApiUrl } from "api/getBaseApiUrl";
 import { getContacts, setContacts } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
@@ -12,7 +12,7 @@ export const AddContact = () => {
 	const contacts = useSelector(getContacts);
 	const dispatch = useDispatch();
 	const [formValues, setFormValues] = useState({});
-	const url = useSelector(getApiUrl) + "/contacts";
+	const url = baseApiUrl + "/contacts";
 	const { input, wrapper } = styles;
 	const [reset, setReset] = useState(false);
 

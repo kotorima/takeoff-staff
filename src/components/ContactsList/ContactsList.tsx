@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { request } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
 import { setContacts, getContacts } from "store/slices/contacts";
+import { baseApiUrl } from "api/getBaseApiUrl";
 import { ContactItem } from "../ContactItem";
 import styles from "./styles.module.scss";
 
 export const ContactsList = () => {
 	const contacts = useSelector(getContacts);
-	const url = useSelector(getApiUrl) + "/contacts";
+	const url = baseApiUrl + "/contacts";
 	const dispatch = useDispatch();
 	const { header, container, body, left } = styles;
 

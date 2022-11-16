@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useAuth } from "helpers/useAuth";
-import { setCredentials } from "store/slices/authSlice";
-import { useNavigatedFrom } from "helpers";
+import { useNavigatedFrom, useAuth } from "hooks";
 
 interface Props {
 	children: JSX.Element;

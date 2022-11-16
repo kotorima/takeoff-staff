@@ -1,5 +1,5 @@
-import { UserStorageProps } from "helpers/interface";
-import { getAccessToken } from "./auth";
+import { UserStorageProps } from "helpers/interfaces";
+import { getStorageToken } from "./localStorage";
 interface Props {
 	(
 		url: string,
@@ -24,7 +24,7 @@ async function send(req: Promise<any>) {
 }
 
 export const request: Props = (url, params) => {
-	const token = getAccessToken();
+	const token = getStorageToken();
 	const defaultData = {
 		method: "GET",
 		headers: {

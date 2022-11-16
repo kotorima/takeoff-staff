@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import apiUrlReducer from "./slices/apiUrl";
+import { api } from "hooks/useApiRequest";
 import contactsReducer from "./slices/contacts";
-import authReducer from "./slices/authSlice";
-import { api } from "api/auth";
+import authReducer from "./slices/auth";
 
 const store = configureStore({
 	reducer: {
 		[api.reducerPath]: api.reducer,
 		auth: authReducer,
-		apiUrl: apiUrlReducer,
 		contacts: contactsReducer,
 	},
 	middleware: (getDefaultMiddleware) =>

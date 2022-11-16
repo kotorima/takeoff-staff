@@ -4,9 +4,7 @@ export {
 	getUserFromStorage,
 	setUserFromStorage,
 	removeUserFromStorage,
-	getAccessToken,
-} from "./auth";
-export { useAuth } from "./useAuth";
-export { useNavigatedFrom } from "./useRouters";
-export { useLoader } from "./useLoader";
+	getStorageToken,
+	getStorageUserId,
+} from "./localStorage";
 export { theme } from "./theme";

@@ -1,6 +1,6 @@
 import { Tooltip, IconButton } from "@mui/material";
 import { SettingsBackupRestoreRounded as BackupRestoreIcon } from "@mui/icons-material";
-import { ButtonProps } from "helpers/interface";
+import { ButtonProps } from "helpers/interfaces";
 import styles from "./styles.module.scss";
 
 export const ButtonCancel = ({ title, onChange }: ButtonProps) => {
