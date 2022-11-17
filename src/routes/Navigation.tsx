@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth, useCheckAuth } from "hooks";
 import { useGetUserMutation } from "hooks/useApiRequest";
 import { setAuthData } from "store/slices/auth";
@@ -15,9 +16,10 @@ const PackageLocation = () => {
 
 	useEffect(() => {
 		if (!auth.user) {
-			loader(getUser).then((params) => {
-				console.log(params);
-				dispatch(setAuthData(params));
+			loader(getUser).then((response) => {
+				if (response) {
+					dispatch(setAuthData(response));
+				}
 				setIsLoaded(true);
 			});
 		}
@@ -32,7 +34,7 @@ const PackageLocation = () => {
 					))}
 				</Routes>
 			) : (
-				<div>loading ... </div>
+				<CircularProgress />
 			)}
 		</>
 	);

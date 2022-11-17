@@ -7,4 +7,5 @@ export {
 	getStorageToken,
 	getStorageUserId,
 } from "./localStorage";
+export { validateForm } from "./validateForm";
 export { theme } from "./theme";

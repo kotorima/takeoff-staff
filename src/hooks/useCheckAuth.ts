@@ -9,7 +9,7 @@ export const useCheckAuth = async (getUser: GetProps) => {
 		.unwrap()
 		.then((res: any) => {
 			const { error, accessToken, user } = res;
-			console.log(res);
+			console.log("useCheckAuth", res);
 			if (!error) {
 				const params = {
 					token: accessToken ? accessToken : getStorageToken(),
@@ -17,6 +17,8 @@ export const useCheckAuth = async (getUser: GetProps) => {
 				};
 				setUserFromStorage({ token: params.token, userId: params.user.id });
 				return params;
+			} else {
+				return error;
 			}
 		})
 		.catch((e: any) => console.log(e));

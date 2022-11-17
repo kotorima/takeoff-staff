@@ -5,13 +5,14 @@ export interface PageProps {
 	children?: ReactNode;
 }
 
-export interface User {
-	name: string;
+export interface ShowFormChangeProps {
+	log: boolean;
+	reg: boolean;
 }
 
 export interface FormProps {
 	show: boolean;
-	onChange: (changes: { shIn: boolean; shUp: boolean }) => void;
+	onChange: (changes: ShowFormChangeProps) => void;
 }
 
 export interface ContactElement {
@@ -64,4 +65,14 @@ export interface UserResponseProps {
 export interface LoginRequestProps {
 	email: string;
 	password: string;
+}
+
+export interface RegisterRequestProps extends LoginRequestProps {
+	firstname: string;
+	lastname: string;
+}
+
+export interface ErrorProps {
+	status: number;
+	data: string;
 }

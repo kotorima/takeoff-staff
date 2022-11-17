@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserResponseProps, LoginRequestProps } from "helpers/interfaces";
+import {
+	UserResponseProps,
+	LoginRequestProps,
+	RegisterRequestProps,
+} from "helpers/interfaces";
 import type { RootState } from "store/generateState";
 import { getStorageToken, getStorageUserId } from "helpers/localStorage";
 import { baseApiUrl } from "api/getBaseApiUrl";
@@ -26,6 +30,16 @@ export const api: any = createApi({
 				body,
 			}),
 		}),
+		register: builder.mutation<UserResponseProps, RegisterRequestProps>({
+			query: (body) => ({
+				url: "/register",
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body,
+			}),
+		}),
 		getUser: builder.mutation({
 			query: () => ({
 				url: `/users/${getStorageUserId()}`,
@@ -38,4 +52,5 @@ export const api: any = createApi({
 	}),
 });
 
-export const { useLoginMutation, useGetUserMutation } = api;
+export const { useLoginMutation, useRegisterMutation, useGetUserMutation } =
+	api;

@@ -6,7 +6,10 @@ const AuthorizationPage = ({ title }: PageProps) => {
 	return (
 		<PageBasis title={title}>
 			<div>
-				<Form show='in' />
+				<Form
+					// show='login'
+					show='register'
+				/>
 			</div>
 		</PageBasis>
 	);

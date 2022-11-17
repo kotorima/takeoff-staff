@@ -1,31 +1,27 @@
 import { useState } from "react";
-import { SingUp } from "./SingUp/SingUp";
-import { SingIn } from "./SingIn/SingIn";
+import { ShowFormChangeProps } from "helpers/interfaces";
+import { Registeration } from "./Registeration/Registeration";
+import { Login } from "./Login/Login";
 
 interface Props {
-	show: string;
-}
-
-interface ToggleShowArg {
-	shUp: boolean;
-	shIn: boolean;
+	show: "login" | "register";
 }
 
 export const Form = ({ show }: Props) => {
-	const [showUp, setShowUp] = useState(show === "up" ? true : false);
-	const [showIn, setShowIn] = useState(!showUp);
+	const [showLog, setShowLog] = useState(show === "login" ? true : false);
+	const [showReg, setShowReg] = useState(!showLog);
 
-	const toggleShow = ({ shIn, shUp }: ToggleShowArg) => {
-		setShowUp(shUp);
-		setShowIn(shIn);
+	const toggleShow = ({ log, reg }: ShowFormChangeProps) => {
+		setShowLog(log);
+		setShowReg(reg);
 	};
 
 	return (
 		<>
-			{showUp ? (
-				<SingUp show={showUp} onChange={toggleShow} />
+			{showLog ? (
+				<Login show={showLog} onChange={toggleShow} />
 			) : (
-				<SingIn show={showIn} onChange={toggleShow} />
+				<Registeration show={showReg} onChange={toggleShow} />
 			)}
 		</>
 	);
