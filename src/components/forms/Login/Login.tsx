@@ -1,25 +1,23 @@
-import { useState, FormEvent, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useState, FormEvent } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Link, Typography, Box } from "@mui/material";
+import { useSetUserMutation } from "hooks";
+import { setUserFromStorage, validateForm, changeShowForm } from "helpers";
 import {
 	FormProps,
 	LoginRequestProps,
 	UserResponseProps,
 } from "helpers/interfaces";
-import { useNavigatedFrom, useLoginMutation } from "hooks";
 import { setAuthData } from "store/slices/auth";
-import { setUserFromStorage, validateForm } from "helpers";
 import { AuthInput } from "components/inputs";
 import styles from "./styles.module.scss";
 
-export const Login = ({ show, onChange }: FormProps) => {
+export const Login = ({ onChange }: FormProps) => {
 	const fields = { password: "", email: "" };
 	const [helperTexts, setHelperTexts] = useState<LoginRequestProps>(fields);
-	const location = useLocation();
-	const navigatedFrom = useNavigatedFrom();
 	const dispatch = useDispatch();
-	const [login] = useLoginMutation();
+
+	const [setUser] = useSetUserMutation();
 
 	const { log, input, legend, link, button } = styles;
 
@@ -27,32 +25,26 @@ export const Login = ({ show, onChange }: FormProps) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
 
-		const data = {
+		const body = {
 			email: formData.get("email"),
 			password: formData.get("password"),
 		};
 
-		login(data)
+		const params = {
+			url: "/login",
+			body,
+		};
+
+		setUser(params)
 			.unwrap()
 			.then((response: UserResponseProps) => {
-				console.log("fulfilled", response);
 				const { user, accessToken } = response;
 				if (user && accessToken) {
 					setUserFromStorage({ token: accessToken, userId: user.id });
 					dispatch(setAuthData({ token: accessToken, user: user }));
-				} else {
-					console.log("cringe", response);
 				}
 			})
 			.catch((error: any) => setHelperTexts(validateForm(fields, error)));
-	};
-
-	const changeForm = () => {
-		const chages = {
-			log: !show,
-			reg: show,
-		};
-		onChange(chages);
 	};
 
 	return (
@@ -85,7 +77,11 @@ export const Login = ({ show, onChange }: FormProps) => {
 			<Button type='submit' fullWidth variant='contained' className={button}>
 				Send
 			</Button>
-			<Link href='#' className={link} onClick={changeForm}>
+			<Link
+				href='#'
+				className={link}
+				onClick={() => changeShowForm(onChange, "log")}
+			>
 				Don't have an account? Register
 			</Link>
 		</Box>

@@ -1,50 +1,45 @@
 import { useState, FormEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, TextField, Link, Typography, Box } from "@mui/material";
+import { Button, Link, Typography, Box } from "@mui/material";
+import { useSetUserMutation } from "hooks";
+import { validateForm, changeShowForm } from "helpers";
 import {
 	FormProps,
 	UserResponseProps,
-	RegisterRequestProps,
 	LoginRequestProps,
 } from "helpers/interfaces";
-import { useNavigatedFrom, useRegisterMutation } from "hooks";
-import { request, validateForm } from "helpers";
 import { AuthInput } from "components/inputs";
 import styles from "./styles.module.scss";
 
-export const Registeration = ({ show, onChange }: FormProps) => {
+export const Registeration = ({ onChange }: FormProps) => {
 	const fields = { password: "", email: "" };
 	const [helperTexts, setHelperTexts] = useState<LoginRequestProps>(fields);
-	const dispatch = useDispatch();
-	const [register] = useRegisterMutation();
+	const [setUser] = useSetUserMutation();
 	const { reg, row, input, legend, link, button } = styles;
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
-		const data = {
+		const body = {
 			firstname: formData.get("firstName"),
 			lastname: formData.get("lastName"),
 			email: formData.get("email"),
 			password: formData.get("password"),
 		};
 
-		register(data)
-			.unwrap()
-			.then((response: UserResponseProps) => {
-				console.log("fulfilled", response);
-				// const { user, accessToken } = response;
-			})
-			.catch((error: any) => setHelperTexts(validateForm(fields, error)));
-	};
-
-	const changeForm = () => {
-		const chages = {
-			log: show,
-			reg: !show,
+		const params = {
+			url: "/register",
+			body,
 		};
 
-		onChange(chages);
+		setUser(params)
+			.unwrap()
+			.then((response: UserResponseProps) => {
+				const { user, accessToken } = response;
+				if (user && accessToken) {
+					changeShowForm(onChange, "reg");
+				}
+			})
+			.catch((error: any) => setHelperTexts(validateForm(fields, error)));
 	};
 
 	return (
@@ -88,7 +83,11 @@ export const Registeration = ({ show, onChange }: FormProps) => {
 			<Button type='submit' fullWidth variant='contained' className={button}>
 				Send
 			</Button>
-			<Link href='#' className={link} onClick={changeForm}>
+			<Link
+				href=''
+				className={link}
+				onClick={() => changeShowForm(onChange, "reg")}
+			>
 				Already have an account? Login
 			</Link>
 		</Box>

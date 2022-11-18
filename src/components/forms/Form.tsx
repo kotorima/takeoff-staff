@@ -3,25 +3,19 @@ import { ShowFormChangeProps } from "helpers/interfaces";
 import { Registeration } from "./Registeration/Registeration";
 import { Login } from "./Login/Login";
 
-interface Props {
-	show: "login" | "register";
-}
+export const Form = () => {
+	const [show, setShow] = useState({ log: true, reg: false });
 
-export const Form = ({ show }: Props) => {
-	const [showLog, setShowLog] = useState(show === "login" ? true : false);
-	const [showReg, setShowReg] = useState(!showLog);
-
-	const toggleShow = ({ log, reg }: ShowFormChangeProps) => {
-		setShowLog(log);
-		setShowReg(reg);
+	const toggleShow = (changes: ShowFormChangeProps) => {
+		setShow(changes);
 	};
 
 	return (
 		<>
-			{showLog ? (
-				<Login show={showLog} onChange={toggleShow} />
+			{show.log ? (
+				<Login onChange={toggleShow} />
 			) : (
-				<Registeration show={showReg} onChange={toggleShow} />
+				<Registeration onChange={toggleShow} />
 			)}
 		</>
 	);

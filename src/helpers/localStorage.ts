@@ -11,7 +11,7 @@ export const removeUserFromStorage = () => localStorage.removeItem("user");
 export const setUserFromStorage = (user: UserStorageProps) =>
 	localStorage.setItem("user", JSON.stringify(user));
 
-export const getStorageToken = () => {
+export const getStorageToken: () => string | null = () => {
 	const storage = getUserFromStorage();
 	return storage ? storage.token : null;
 };

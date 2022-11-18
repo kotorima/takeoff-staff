@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 
+type FormName = "log" | "reg";
+type UrlAuth = "/login" | "/register";
+
 export interface PageProps {
 	title: string;
 	children?: ReactNode;
@@ -10,9 +13,16 @@ export interface ShowFormChangeProps {
 	reg: boolean;
 }
 
+export interface CallbackFormProps {
+	(changes: ShowFormChangeProps): void;
+}
+
+export interface ChangeFormProps {
+	(callback: CallbackFormProps, form: FormName): void;
+}
+
 export interface FormProps {
-	show: boolean;
-	onChange: (changes: ShowFormChangeProps) => void;
+	onChange: CallbackFormProps;
 }
 
 export interface ContactElement {
@@ -70,6 +80,11 @@ export interface LoginRequestProps {
 export interface RegisterRequestProps extends LoginRequestProps {
 	firstname: string;
 	lastname: string;
+}
+
+export interface UserRequestProps {
+	url: UrlAuth;
+	body: LoginRequestProps | RegisterRequestProps;
 }
 
 export interface ErrorProps {
