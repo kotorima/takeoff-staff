@@ -3,7 +3,7 @@ import { Tooltip, IconButton } from "@mui/material";
 import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
 import { ButtonProps, ContactElement } from "helpers/interfaces";
 import { request } from "helpers/request";
-import { getContacts } from "store/slices/contacts";
+import { useContacts } from "hooks";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 
@@ -23,7 +23,7 @@ export const ButtonSave = ({
 	formValues,
 	index,
 }: ButtonSaveProps) => {
-	const contacts = useSelector(getContacts);
+	const contacts = useContacts();
 	const { save, disabled, icon } = styles;
 
 	const saveElement = () => {
@@ -35,9 +35,9 @@ export const ButtonSave = ({
 		};
 
 		request(saveUrl, params).then((res) => {
-			let newContacts = [...contacts];
-			newContacts[index] = res;
-			onChange(newContacts);
+			// let newContacts = [...contacts];
+			// newContacts[index] = res;
+			// onChange(newContacts);
 		});
 	};
 

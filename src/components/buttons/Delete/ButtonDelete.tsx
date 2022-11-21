@@ -3,11 +3,11 @@ import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { request } from "helpers";
 import { ButtonProps, ContactElement } from "helpers/interfaces";
-import { getContacts } from "store/slices/contacts";
+import { useContacts } from "hooks";
 import styles from "./styles.module.scss";
 
 export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
-	const contacts = useSelector(getContacts);
+	const contacts = useContacts();
 	const { remove, icon } = styles;
 
 	const removeElement = () => {
@@ -16,10 +16,10 @@ export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
 			method: "DELETE",
 		};
 		request(deleteUrl, params).then((res) => {
-			const newContacts: ContactElement[] = contacts.filter(
-				(item: ContactElement) => item.id !== id,
-			);
-			onChange(newContacts);
+			// const newContacts: ContactElement[] = contacts.filter(
+			// 	(item: ContactElement) => item.id !== id,
+			// );
+			// onChange(newContacts);
 		});
 	};
 	return (

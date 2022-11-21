@@ -1,5 +1,10 @@
 export { useAuth } from "./useAuth";
+export { useContacts } from "./useContacts";
 export { useNavigatedFrom } from "./useRouters";
 export { useCheckAuth } from "./useCheckAuth";
 export { useAppDispatch, useTypedSelector } from "./useStorage";
-export { useGetUserMutation, useSetUserMutation } from "./useApiRequest";
+export {
+	useGetUserMutation,
+	useSetUserMutation,
+	useGetContactsMutation,
+} from "./useApiRequest";

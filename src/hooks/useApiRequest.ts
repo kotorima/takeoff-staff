@@ -7,7 +7,7 @@ import {
 } from "helpers/interfaces";
 import type { RootState } from "store/generateState";
 import { getStorageToken, getStorageUserId } from "helpers/localStorage";
-import { baseApiUrl } from "api/getBaseApiUrl";
+import { baseApiUrl } from "helpers/getBaseApiUrl";
 
 export const api: any = createApi({
 	baseQuery: fetchBaseQuery({
@@ -41,7 +41,21 @@ export const api: any = createApi({
 				},
 			}),
 		}),
+
+		getContacts: builder.mutation({
+			query: () => ({
+				url: `/contacts?userId=${getStorageUserId()}`,
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}),
+		}),
 	}),
 });
 
-export const { useSetUserMutation, useGetUserMutation } = api;
+export const {
+	useSetUserMutation,
+	useGetUserMutation,
+	useGetContactsMutation,
+} = api;

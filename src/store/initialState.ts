@@ -1,6 +1,7 @@
+import { StateProps } from "helpers/interfaces";
 import { getStorageToken } from "helpers/localStorage";
 
-const initialState = {
+const initialState: StateProps = {
 	auth: {
 		user: null,
 		token: getStorageToken(),

@@ -9,7 +9,6 @@ export const useCheckAuth = async (getUser: GetProps) => {
 		.unwrap()
 		.then((res: any) => {
 			const { error, accessToken, user } = res;
-			console.log("useCheckAuth", res);
 			if (!error) {
 				const params = {
 					token: accessToken ? accessToken : getStorageToken(),

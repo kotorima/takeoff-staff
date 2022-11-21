@@ -1,18 +1,21 @@
 const casual = require("casual");
 
-const defineData = (name, data) => casual.define(name, () => data);
-
-const idGenerator = (length, index) => {
+function idGenerator(length, index) {
     const arr = casual.array_of_digits(length);
     return (
         casual.integer(0, 1000) + casual.integer(0, 1000) * arr[index] * (index + 2)
     );
-};
+}
 
-const valueGenerator = (start, field) => {
+function defineData(name, data) {
+    return casual.define(name, () => data);
+}
+
+function valueGenerator(start, field) {
     if (start) return casual[field];
-};
-const arrayGenerator = (element, number) => {
+}
+
+function arrayGenerator(element, number) {
     const length = number || casual.integer(0, 100);
     const result = [];
 
@@ -26,7 +29,7 @@ const arrayGenerator = (element, number) => {
     }
 
     return result;
-};
+}
 
 module.exports = {
     defineData,

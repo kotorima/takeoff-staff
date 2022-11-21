@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
+import { useGetContactsMutation, useContacts } from "hooks";
 import { CustomInput } from "components/inputs/CustomInput";
 import { ContactElement, FuncButtonProps } from "helpers/interfaces";
-import { baseApiUrl } from "api/getBaseApiUrl";
-import { getContacts, setContacts } from "store/slices/contacts";
+import { baseApiUrl } from "helpers/getBaseApiUrl";
+import { setContacts } from "store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 const cx = classNames.bind(styles);
@@ -22,10 +23,10 @@ export const ContactItem = ({
 	id,
 	index,
 }: ContactItemProps) => {
-	const contacts = useSelector(getContacts);
+	const contacts = useContacts();
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(true);
-	const [list, setList] = useState<ContactElement[]>(contacts);
+	const [list, setList] = useState(contacts);
 	const [edit, setEdit] = useState(false);
 	const url = baseApiUrl + "/contacts";
 	const [formValues, setFormValues] = useState({

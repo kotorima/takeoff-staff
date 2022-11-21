@@ -37,7 +37,7 @@
         "build": "craco build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "server": "json-server --watch src/api/data.js --middlewares ./node_modules/json-server-auth --port 8000 ",
+        "server": "node src/api/server.js",
         "dev": "concurrently \"npm run server\" \"npm run start\""
     },
     "eslintConfig": {

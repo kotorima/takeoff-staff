@@ -4,12 +4,13 @@ import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
 import { CustomInput } from "components/inputs/CustomInput";
 import { request } from "helpers";
-import { baseApiUrl } from "api/getBaseApiUrl";
-import { getContacts, setContacts } from "store/slices/contacts";
+import { useContacts } from "hooks";
+import { baseApiUrl } from "helpers/getBaseApiUrl";
+import { setContacts } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const AddContact = () => {
-	const contacts = useSelector(getContacts);
+	const contacts = useContacts();
 	const dispatch = useDispatch();
 	const [formValues, setFormValues] = useState({});
 	const url = baseApiUrl + "/contacts";
@@ -24,10 +25,10 @@ export const AddContact = () => {
 		};
 
 		request(url, params).then((res) => {
-			let newList = [...contacts];
-			newList.unshift(res);
-			dispatch(setContacts(newList));
-			setReset(true);
+			// let newList = [...contacts];
+			// newList.unshift(res);
+			// dispatch(setContacts(newList));
+			// setReset(true);
 		});
 
 		event.preventDefault();

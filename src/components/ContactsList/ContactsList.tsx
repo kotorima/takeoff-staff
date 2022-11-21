@@ -1,23 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
-import { request } from "helpers";
-import { setContacts, getContacts } from "store/slices/contacts";
-import { baseApiUrl } from "api/getBaseApiUrl";
+import { useGetContactsMutation, useContacts } from "hooks";
+import { ContactsProps, ContactElement } from "helpers/interfaces";
+import { setContacts, selectCurrentContacts } from "store/slices/contacts";
 import { ContactItem } from "../ContactItem";
 import styles from "./styles.module.scss";
 
 export const ContactsList = () => {
-	const contacts = useSelector(getContacts);
-	const url = baseApiUrl + "/contacts";
+	const contacts = useContacts();
 	const dispatch = useDispatch();
+	const [getContacts] = useGetContactsMutation();
 	const { header, container, body, left } = styles;
 
+	const getList = () => {
+		getContacts()
+			.unwrap()
+			.then((response: any) => {
+				dispatch(setContacts(response));
+			})
+			.catch((error: any) => console.log(error));
+	};
+
 	useEffect(() => {
-		request(url).then((data) => {
-			dispatch(setContacts(data));
-		});
-	}, [url]);
+		getList();
+	}, []);
 
 	return (
 		<div>
@@ -33,16 +40,18 @@ export const ContactsList = () => {
 						<div className={left}>Actions</div>
 					</div>
 					<div className={body}>
-						{contacts.map(({ name, email, phone, id }, index) => (
-							<ContactItem
-								key={id}
-								email={email}
-								name={name}
-								id={id}
-								phone={phone}
-								index={index}
-							/>
-						))}
+						{contacts.map(
+							({ name, email, phone, id }: ContactElement, index: number) => (
+								<ContactItem
+									key={id}
+									email={email}
+									name={name}
+									id={id}
+									phone={phone}
+									index={index}
+								/>
+							),
+						)}
 					</div>
 				</div>
 			) : (

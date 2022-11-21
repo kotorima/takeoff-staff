@@ -1,23 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { ContactsProps, ContactElement, UserProps } from "helpers/interfaces";
+import type { RootState } from "../generateState";
 import initialState from "../initialState";
-import { StateProps } from "helpers/interfaces";
 
 export const slice = createSlice({
 	name: "contacts",
-	initialState: initialState.contacts,
-
+	initialState: initialState,
 	reducers: {
-		setContacts: (state, action) => {
-			const contacts = action.payload;
-			state = contacts;
-
-			return state;
+		setContacts: (state, { payload }: PayloadAction<ContactElement[]>) => {
+			state.contacts = payload;
 		},
 	},
 });
 
 export const { setContacts } = slice.actions;
 
-export const getContacts = (state: StateProps) => state.contacts;
+export const selectCurrentContacts = (state: RootState) => state.contacts;
 
 export default slice.reducer;

@@ -32,6 +32,11 @@ export interface ContactElement {
 	id: number;
 }
 
+export interface ContactsProps {
+	list: ContactElement[];
+	id: string;
+}
+
 export interface FuncButtonProps {
 	(updateList: ContactElement[]): void;
 }
