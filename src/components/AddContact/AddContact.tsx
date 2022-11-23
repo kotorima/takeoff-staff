@@ -3,10 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
 import { CustomInput } from "components/inputs/CustomInput";
-import { request } from "helpers";
-import { useContacts } from "hooks";
+import { request, getStorageUserId } from "helpers";
+import {
+	useContacts,
+	useAddContactMutation,
+	useGetContactsMutation,
+	useGetUserMutation,
+} from "hooks";
 import { baseApiUrl } from "helpers/getBaseApiUrl";
-import { setContacts } from "store/slices/contacts";
+import { setContacts, addNewContact } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const AddContact = () => {
@@ -16,20 +21,26 @@ export const AddContact = () => {
 	const url = baseApiUrl + "/contacts";
 	const { input, wrapper } = styles;
 	const [reset, setReset] = useState(false);
+	const [addContact] = useAddContactMutation();
+	const [getUser] = useGetUserMutation();
 
 	const addElement = (event: FormEvent) => {
-		const data = JSON.stringify(formValues);
-		const params = {
-			method: "POST",
-			body: data,
+		const data = formValues;
+		const body = {
+			userId: getStorageUserId(),
+			...data,
 		};
 
-		request(url, params).then((res) => {
-			// let newList = [...contacts];
-			// newList.unshift(res);
-			// dispatch(setContacts(newList));
-			// setReset(true);
-		});
+		console.log(body);
+
+		addContact(body)
+			.unwrap()
+			.then((response: any) => {
+				console.log(response);
+				dispatch(addNewContact(response));
+				setReset(true);
+			})
+			.catch((error: any) => console.log(error));
 
 		event.preventDefault();
 	};

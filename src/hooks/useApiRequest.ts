@@ -51,6 +51,17 @@ export const api: any = createApi({
 				},
 			}),
 		}),
+
+		addContact: builder.mutation({
+			query: (body) => ({
+				url: `/contacts`,
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body,
+			}),
+		}),
 	}),
 });
 
@@ -58,4 +69,5 @@ export const {
 	useSetUserMutation,
 	useGetUserMutation,
 	useGetContactsMutation,
+	useAddContactMutation,
 } = api;

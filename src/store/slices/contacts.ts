@@ -11,10 +11,13 @@ export const slice = createSlice({
 		setContacts: (state, { payload }: PayloadAction<ContactElement[]>) => {
 			state.contacts = payload;
 		},
+		addNewContact: (state, { payload }: PayloadAction<ContactElement>) => {
+			state.contacts.push(payload);
+		},
 	},
 });
 
-export const { setContacts } = slice.actions;
+export const { setContacts, addNewContact } = slice.actions;
 
 export const selectCurrentContacts = (state: RootState) => state.contacts;
 

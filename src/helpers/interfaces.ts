@@ -96,3 +96,12 @@ export interface ErrorProps {
 	status: number;
 	data: string;
 }
+
+export interface ContactRequestProps {
+	body: {
+		name: string;
+		email: string;
+		phone: string;
+		userId: string | number;
+	};
+}

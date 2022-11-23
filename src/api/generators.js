@@ -15,6 +15,12 @@ function valueGenerator(start, field) {
     if (start) return casual[field];
 }
 
+function getElementValue(element) {
+    const type = typeof element;
+    const value = type === "function" ? element(true) : element;
+    return value;
+}
+
 function arrayGenerator(element, number) {
     const length = number || casual.integer(0, 100);
     const result = [];
@@ -22,7 +28,8 @@ function arrayGenerator(element, number) {
     for (let i = 0; i < length; ++i) {
         let obj = {};
         for (let key in element) {
-            const val = key === "id" ? idGenerator(length, i) : element[key](true);
+            const val =
+                key === "id" ? idGenerator(length, i) : getElementValue(element[key]);
             obj[key] = val;
         }
         result.push(obj);
@@ -35,5 +42,6 @@ module.exports = {
     defineData,
     valueGenerator,
     arrayGenerator,
+    idGenerator,
     casual,
 };

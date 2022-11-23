@@ -17,9 +17,13 @@ export const ContactsList = () => {
 		getContacts()
 			.unwrap()
 			.then((response: any) => {
+				console.log(response);
 				dispatch(setContacts(response));
 			})
-			.catch((error: any) => console.log(error));
+			.catch((error: any) => {
+				console.log(error);
+				dispatch(setContacts([]));
+			});
 	};
 
 	useEffect(() => {
@@ -31,7 +35,7 @@ export const ContactsList = () => {
 			<Typography component='h1' variant='h5'>
 				Contacts List
 			</Typography>
-			{contacts ? (
+			{contacts && contacts.length > 0 ? (
 				<div className={container}>
 					<div className={header}>
 						<div>Name</div>
@@ -55,9 +59,14 @@ export const ContactsList = () => {
 					</div>
 				</div>
 			) : (
-				<Typography component='h4' variant='h5'>
-					Your contact list is empty
-				</Typography>
+				<div>
+					<Typography component='h4' variant='h6'>
+						Your contact list is empty
+					</Typography>
+					<Typography component='p'>
+						Use the form above and add your first contact
+					</Typography>
+				</div>
 			)}
 		</div>
 	);
