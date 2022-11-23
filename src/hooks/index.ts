@@ -8,4 +8,5 @@ export {
 	useSetUserMutation,
 	useGetContactsMutation,
 	useAddContactMutation,
+	useRemoveContactMutation,
 } from "./useApiRequest";

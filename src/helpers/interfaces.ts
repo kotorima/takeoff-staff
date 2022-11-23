@@ -49,6 +49,13 @@ export interface ButtonProps {
 	isActive?: boolean;
 }
 
+export interface ButtonActionProps {
+	title: string;
+	id: number;
+	onChange?: FuncButtonProps;
+	isActive?: boolean;
+}
+
 export interface UserProps {
 	email: string;
 	firstname: string;

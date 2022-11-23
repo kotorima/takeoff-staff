@@ -14,10 +14,16 @@ export const slice = createSlice({
 		addNewContact: (state, { payload }: PayloadAction<ContactElement>) => {
 			state.contacts.push(payload);
 		},
+		deleteContact: (state, { payload }: PayloadAction<string | number>) => {
+			const list = state.contacts.filter(
+				(item: ContactElement) => item.id !== payload,
+			);
+			state.contacts = list;
+		},
 	},
 });
 
-export const { setContacts, addNewContact } = slice.actions;
+export const { setContacts, addNewContact, deleteContact } = slice.actions;
 
 export const selectCurrentContacts = (state: RootState) => state.contacts;
 

@@ -1,26 +1,32 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { request } from "helpers";
-import { ButtonProps, ContactElement } from "helpers/interfaces";
-import { useContacts } from "hooks";
+import { ButtonActionProps, ContactElement } from "helpers/interfaces";
+import { getStorageUserId } from "helpers";
+import { useContacts, useRemoveContactMutation } from "hooks";
+import { deleteContact } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
-export const ButtonDelete = ({ title, id, url, onChange }: ButtonProps) => {
-	const contacts = useContacts();
+export const ButtonDelete = ({ title, id }: ButtonActionProps) => {
+	const dispatch = useDispatch();
+	const [removeContact] = useRemoveContactMutation();
 	const { remove, icon } = styles;
 
 	const removeElement = () => {
-		const deleteUrl = url + "/" + id;
 		const params = {
-			method: "DELETE",
+			id,
+			body: {
+				userId: getStorageUserId(),
+			},
 		};
-		request(deleteUrl, params).then((res) => {
-			// const newContacts: ContactElement[] = contacts.filter(
-			// 	(item: ContactElement) => item.id !== id,
-			// );
-			// onChange(newContacts);
-		});
+
+		removeContact(params)
+			.unwrap()
+			.then((res: any) => {
+				console.log(res);
+				dispatch(deleteContact(id));
+			})
+			.catch((error: any) => console.log(error));
 	};
 	return (
 		<Tooltip

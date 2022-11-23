@@ -62,6 +62,16 @@ export const api: any = createApi({
 				body,
 			}),
 		}),
+		removeContact: builder.mutation({
+			query: ({ id, body }) => ({
+				url: `/contacts/${id}`,
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body,
+			}),
+		}),
 	}),
 });
 
@@ -70,4 +80,5 @@ export const {
 	useGetUserMutation,
 	useGetContactsMutation,
 	useAddContactMutation,
+	useRemoveContactMutation,
 } = api;

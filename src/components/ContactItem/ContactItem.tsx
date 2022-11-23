@@ -35,6 +35,7 @@ export const ContactItem = ({
 		phone: phone,
 		id: id,
 	});
+
 	const { item, input, hide, wrapper, left, disabled } = styles;
 
 	const deleteElement: FuncButtonProps = (newList) => {
@@ -107,12 +108,7 @@ export const ContactItem = ({
 						{...commonInputProps}
 					/>
 					<div className={left}>
-						<ButtonDelete
-							title='Delete'
-							id={id}
-							url={url}
-							onChange={deleteElement}
-						/>
+						<ButtonDelete title='Delete' id={id} onChange={deleteElement} />
 						{edit ? (
 							<ButtonCancel title='Restore' onChange={cancelElement} />
 						) : (
