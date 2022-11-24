@@ -9,4 +9,5 @@ export {
 	useGetContactsMutation,
 	useAddContactMutation,
 	useRemoveContactMutation,
+	useUpdateContactReqMutation,
 } from "./useApiRequest";

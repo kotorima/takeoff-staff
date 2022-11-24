@@ -38,7 +38,7 @@ export interface ContactsProps {
 }
 
 export interface FuncButtonProps {
-	(updateList: ContactElement[]): void;
+	(): void;
 }
 
 export interface ButtonProps {
@@ -52,8 +52,9 @@ export interface ButtonProps {
 export interface ButtonActionProps {
 	title: string;
 	id: number;
-	onChange?: FuncButtonProps;
+	onChange: FuncButtonProps;
 	isActive?: boolean;
+	transition: boolean;
 }
 
 export interface UserProps {

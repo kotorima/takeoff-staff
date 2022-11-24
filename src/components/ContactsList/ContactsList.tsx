@@ -30,6 +30,10 @@ export const ContactsList = () => {
 		getList();
 	}, []);
 
+	useEffect(() => {
+		console.log(contacts);
+	}, [contacts]);
+
 	return (
 		<div>
 			<Typography component='h1' variant='h5'>

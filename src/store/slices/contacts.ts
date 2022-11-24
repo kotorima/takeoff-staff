@@ -14,16 +14,25 @@ export const slice = createSlice({
 		addNewContact: (state, { payload }: PayloadAction<ContactElement>) => {
 			state.contacts.push(payload);
 		},
-		deleteContact: (state, { payload }: PayloadAction<string | number>) => {
+		deleteContact: (state, { payload }: PayloadAction<number>) => {
 			const list = state.contacts.filter(
 				(item: ContactElement) => item.id !== payload,
 			);
 			state.contacts = list;
 		},
+		updateContact: (
+			state,
+			{
+				payload: { elem, index },
+			}: PayloadAction<{ elem: ContactElement; index: number }>,
+		) => {
+			state.contacts[index] = elem;
+		},
 	},
 });
 
-export const { setContacts, addNewContact, deleteContact } = slice.actions;
+export const { setContacts, addNewContact, deleteContact, updateContact } =
+	slice.actions;
 
 export const selectCurrentContacts = (state: RootState) => state.contacts;
 

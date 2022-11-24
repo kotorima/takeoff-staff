@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
 import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
-import { useGetContactsMutation, useContacts } from "hooks";
+import { useContacts } from "hooks";
 import { CustomInput } from "components/inputs/CustomInput";
 import { ContactElement, FuncButtonProps } from "helpers/interfaces";
-import { baseApiUrl } from "helpers/getBaseApiUrl";
 import { setContacts } from "store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
@@ -23,12 +22,8 @@ export const ContactItem = ({
 	id,
 	index,
 }: ContactItemProps) => {
-	const contacts = useContacts();
-	const dispatch = useDispatch();
 	const [show, setShow] = useState(true);
-	const [list, setList] = useState(contacts);
 	const [edit, setEdit] = useState(false);
-	const url = baseApiUrl + "/contacts";
 	const [formValues, setFormValues] = useState({
 		name: name,
 		email: email,
@@ -38,25 +33,20 @@ export const ContactItem = ({
 
 	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	const deleteElement: FuncButtonProps = (newList) => {
+	const deleteElement = () => {
 		setShow(false);
-		setList(newList);
 	};
 
-	const editElement: FuncButtonProps = () => setEdit(true);
+	const editElement = () => setEdit(true);
 
-	const saveElement: FuncButtonProps = (newList) => {
-		setEdit(false);
-		setList(newList);
-		dispatch(setContacts(newList));
-	};
+	const saveElement = () => setEdit(false);
 
-	const cancelElement: FuncButtonProps = () => setEdit(false);
+	const cancelElement = () => setEdit(false);
 
 	const getValue = (value: object) =>
 		setFormValues({ ...formValues, ...value });
 
-	const transitionEnd = () => dispatch(setContacts(list));
+	const transitionEnd = () => setShow(true);
 
 	const transitionNames = {
 		enterActive: item,
@@ -108,7 +98,12 @@ export const ContactItem = ({
 						{...commonInputProps}
 					/>
 					<div className={left}>
-						<ButtonDelete title='Delete' id={id} onChange={deleteElement} />
+						<ButtonDelete
+							title='Delete'
+							id={id}
+							onChange={deleteElement}
+							transition={show}
+						/>
 						{edit ? (
 							<ButtonCancel title='Restore' onChange={cancelElement} />
 						) : (
@@ -117,7 +112,6 @@ export const ContactItem = ({
 						<ButtonSave
 							title='Save'
 							id={id}
-							url={url}
 							onChange={saveElement}
 							isActive={edit}
 							index={index}

@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 export const ButtonEdit = ({ title, onChange }: ButtonProps) => {
 	const { edit, icon } = styles;
 
-	const editElement = () => onChange([]);
+	const editElement = () => onChange();
 
 	return (
 		<Tooltip

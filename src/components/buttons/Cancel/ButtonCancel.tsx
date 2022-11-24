@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 export const ButtonCancel = ({ title, onChange }: ButtonProps) => {
 	const { cancel, icon } = styles;
 
-	const cancelElement = () => onChange([]);
+	const cancelElement = () => onChange();
 
 	return (
 		<Tooltip

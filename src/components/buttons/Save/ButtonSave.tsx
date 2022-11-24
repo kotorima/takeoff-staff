@@ -1,9 +1,10 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import { LibraryAddCheckRounded as AddCheckIcon } from "@mui/icons-material";
 import { ButtonProps, ContactElement } from "helpers/interfaces";
-import { request } from "helpers/request";
-import { useContacts } from "hooks";
+import { useContacts, useUpdateContactReqMutation } from "hooks";
+import { getStorageUserId } from "helpers";
+import { updateContact } from "store/slices/contacts";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 
@@ -17,28 +18,34 @@ interface ButtonSaveProps extends ButtonProps {
 export const ButtonSave = ({
 	title,
 	id,
-	url,
 	onChange,
 	isActive,
 	formValues,
 	index,
 }: ButtonSaveProps) => {
-	const contacts = useContacts();
+	const dispatch = useDispatch();
+	const [updateContactReq] = useUpdateContactReqMutation();
 	const { save, disabled, icon } = styles;
 
 	const saveElement = () => {
-		const saveUrl = url + "/" + id;
-		const data = JSON.stringify(formValues);
+		const data = formValues;
 		const params = {
-			method: "PUT",
-			body: data,
+			id,
+			body: {
+				userId: getStorageUserId(),
+				...data,
+			},
 		};
 
-		request(saveUrl, params).then((res) => {
-			// let newContacts = [...contacts];
-			// newContacts[index] = res;
-			// onChange(newContacts);
-		});
+		updateContactReq(params)
+			.unwrap()
+			.then((res: any) => {
+				console.log(res);
+				const arg = { elem: res, index };
+				dispatch(updateContact(arg));
+				onChange();
+			})
+			.catch((error: any) => console.log(error));
 	};
 
 	const itemStyles = cx({

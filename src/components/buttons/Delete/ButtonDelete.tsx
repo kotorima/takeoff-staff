@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,10 +8,24 @@ import { useContacts, useRemoveContactMutation } from "hooks";
 import { deleteContact } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
-export const ButtonDelete = ({ title, id }: ButtonActionProps) => {
+export const ButtonDelete = ({
+	title,
+	id,
+	transition,
+	onChange,
+}: ButtonActionProps) => {
 	const dispatch = useDispatch();
+	const [isDelete, setIsDelete] = useState(false);
 	const [removeContact] = useRemoveContactMutation();
 	const { remove, icon } = styles;
+
+	useEffect(() => {
+		console.log(transition, isDelete);
+		if (transition && isDelete) {
+			console.log("here");
+			dispatch(deleteContact(id));
+		}
+	}, [transition]);
 
 	const removeElement = () => {
 		const params = {
@@ -23,11 +38,12 @@ export const ButtonDelete = ({ title, id }: ButtonActionProps) => {
 		removeContact(params)
 			.unwrap()
 			.then((res: any) => {
-				console.log(res);
-				dispatch(deleteContact(id));
+				setIsDelete(true);
+				onChange();
 			})
 			.catch((error: any) => console.log(error));
 	};
+
 	return (
 		<Tooltip
 			className={remove}
