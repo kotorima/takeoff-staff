@@ -1,36 +1,51 @@
 .item {
-	overflow: hidden;
-	transition: max-height 0.5s ease-out;
-	max-height: 700px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    max-height: 700px;
 }
 
 .hide {
-	pointer-events: none;
-	max-height: 0;
-	color: blue;
+    pointer-events: none;
+    max-height: 0;
+    color: blue;
 }
 
 .wrapper {
-	@include table-row;
-
-	> div {
-		display: flex;
-		align-items: center;
-		width: 100%;
-	}
+    @include table-row;
+    >div {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
 }
 
 .input {
-	@include input;
+    @include input;
 }
 
 .disabled {
-	.input {
-		pointer-events: none;
+    .input {
+        pointer-events: none;
+        input {
+            color: $gray;
+            box-shadow: 0 0 0 1px $muted-gray;
+        }
+    }
+}
 
-		input {
-			color: $gray;
-			box-shadow: 0 0 0 1px $muted-gray;
-		}
-	}
+.saveIcon {
+    @include button-icon($active-green);
+}
+
+.editIcon {
+    @include button-icon($active-blue);
+    transform: rotateX(90);
+}
+
+.removeIcon {
+    @include button-icon($active-red);
+}
+
+.restoreIcon {
+    @include button-icon($active-yellow);
 }

@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
-import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
+import {
+	ButtonDelete,
+	ButtonEdit,
+	ButtonSave,
+	ButtonCancel,
+	ButtonIcon,
+} from "../buttons";
 import { useContacts } from "hooks";
 import { CustomInput } from "components/inputs/CustomInput";
 import { ContactElement, FuncButtonProps } from "helpers/interfaces";
@@ -31,7 +37,19 @@ export const ContactItem = ({
 		id: id,
 	});
 
-	const { item, input, hide, wrapper, left, disabled } = styles;
+	const {
+		item,
+		input,
+		hide,
+		wrapper,
+		left,
+		disabled,
+		saveIcon,
+		editIcon,
+		restoreIcon,
+		removeIcon,
+		icon,
+	} = styles;
 
 	const deleteElement = () => {
 		setShow(false);
@@ -105,9 +123,19 @@ export const ContactItem = ({
 							transition={show}
 						/>
 						{edit ? (
-							<ButtonCancel title='Restore' onChange={cancelElement} />
+							<ButtonIcon
+								title='Restore'
+								onChange={cancelElement}
+								className={restoreIcon}
+								iconStyle={icon}
+							/>
 						) : (
-							<ButtonEdit title='Edit' onChange={editElement} />
+							<ButtonIcon
+								title='Edit'
+								onChange={editElement}
+								className={editIcon}
+								iconStyle={icon}
+							/>
 						)}
 						<ButtonSave
 							title='Save'

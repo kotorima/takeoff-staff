@@ -1,0 +1,16 @@
+.save {
+    @include button-icon($active-green);
+}
+
+.edit {
+    @include button-icon($active-blue);
+    transform: rotateX(90);
+}
+
+.remove {
+    @include button-icon($active-red);
+}
+
+.restore {
+    @include button-icon($active-yellow);
+}
