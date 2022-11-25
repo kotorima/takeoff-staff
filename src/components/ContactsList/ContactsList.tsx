@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { useGetContactsMutation, useContacts } from "hooks";
-import { ContactsProps, ContactElement } from "helpers/interfaces";
-import { setContacts, selectCurrentContacts } from "store/slices/contacts";
-import { ContactItem } from "../ContactItem";
+import { ContactElement } from "helpers/interfaces";
+import { setContacts } from "store/slices/contacts";
+import { ContactItem } from "components/ContactItem";
 import styles from "./styles.module.scss";
 
 export const ContactsList = () => {
@@ -17,7 +17,6 @@ export const ContactsList = () => {
 		getContacts()
 			.unwrap()
 			.then((response: any) => {
-				console.log(response);
 				dispatch(setContacts(response));
 			})
 			.catch((error: any) => {
@@ -29,10 +28,6 @@ export const ContactsList = () => {
 	useEffect(() => {
 		getList();
 	}, []);
-
-	useEffect(() => {
-		console.log(contacts);
-	}, [contacts]);
 
 	return (
 		<div>

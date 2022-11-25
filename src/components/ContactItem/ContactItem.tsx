@@ -1,18 +1,9 @@
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
-import {
-	ButtonDelete,
-	ButtonEdit,
-	ButtonSave,
-	ButtonCancel,
-	ButtonIcon,
-} from "../buttons";
-import { useContacts } from "hooks";
+import { ContactElement } from "helpers/interfaces";
 import { CustomInput } from "components/inputs/CustomInput";
-import { ContactElement, FuncButtonProps } from "helpers/interfaces";
-import { setContacts } from "store/slices/contacts";
+import { ActionPanel } from "components/ActionPanel";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 const cx = classNames.bind(styles);
@@ -34,37 +25,15 @@ export const ContactItem = ({
 		name: name,
 		email: email,
 		phone: phone,
-		id: id,
 	});
 
-	const {
-		item,
-		input,
-		hide,
-		wrapper,
-		left,
-		disabled,
-		saveIcon,
-		editIcon,
-		restoreIcon,
-		removeIcon,
-		icon,
-	} = styles;
+	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	const deleteElement = () => {
-		setShow(false);
-	};
-
-	const editElement = () => setEdit(true);
-
-	const saveElement = () => setEdit(false);
-
-	const cancelElement = () => setEdit(false);
-
+	const changeShow = (value: boolean) => setShow(value);
+	const changeEdit = (value: boolean) => setEdit(value);
+	const transitionEnd = () => setShow(true);
 	const getValue = (value: object) =>
 		setFormValues({ ...formValues, ...value });
-
-	const transitionEnd = () => setShow(true);
 
 	const transitionNames = {
 		enterActive: item,
@@ -75,6 +44,7 @@ export const ContactItem = ({
 		[item]: true,
 		[disabled]: !edit,
 	});
+
 	const commonInputProps = {
 		className: input,
 		getValue,
@@ -116,34 +86,14 @@ export const ContactItem = ({
 						{...commonInputProps}
 					/>
 					<div className={left}>
-						<ButtonDelete
-							title='Delete'
-							id={id}
-							onChange={deleteElement}
-							transition={show}
-						/>
-						{edit ? (
-							<ButtonIcon
-								title='Restore'
-								onChange={cancelElement}
-								className={restoreIcon}
-								iconStyle={icon}
-							/>
-						) : (
-							<ButtonIcon
-								title='Edit'
-								onChange={editElement}
-								className={editIcon}
-								iconStyle={icon}
-							/>
-						)}
-						<ButtonSave
-							title='Save'
-							id={id}
-							onChange={saveElement}
-							isActive={edit}
-							index={index}
+						<ActionPanel
+							contactId={id}
+							elementIndex={index}
 							formValues={formValues}
+							toggleShow={changeShow}
+							toggleEdit={changeEdit}
+							show={show}
+							edit={edit}
 						/>
 					</div>
 				</Box>

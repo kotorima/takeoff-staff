@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
 	Edit,
 	Delete,
@@ -8,26 +7,26 @@ import {
 
 interface IconProps {
 	name: string;
-	style: string;
+	className: string;
 }
 
-export const Icon = ({ name, style }: IconProps) => {
+export const Icon = ({ name, className }: IconProps) => {
 	const renderIcon = () => {
 		switch (name) {
 			case "Edit": {
-				return <Edit className={style} />;
+				return <Edit className={className} />;
 			}
 			case "Delete": {
-				return <Delete className={style} />;
+				return <Delete className={className} />;
 			}
 			case "Restore": {
-				return <Restore className={style} />;
+				return <Restore className={className} />;
 			}
 			case "Save": {
-				return <Save className={style} />;
+				return <Save className={className} />;
 			}
 			default: {
-				return <span>Icon with name {name} not found</span>;
+				return <span>Icon {name} not found</span>;
 			}
 		}
 	};

@@ -32,20 +32,3 @@
         }
     }
 }
-
-.saveIcon {
-    @include button-icon($active-green);
-}
-
-.editIcon {
-    @include button-icon($active-blue);
-    transform: rotateX(90);
-}
-
-.removeIcon {
-    @include button-icon($active-red);
-}
-
-.restoreIcon {
-    @include button-icon($active-yellow);
-}

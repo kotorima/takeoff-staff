@@ -23,10 +23,10 @@ export const slice = createSlice({
 		updateContact: (
 			state,
 			{
-				payload: { elem, index },
-			}: PayloadAction<{ elem: ContactElement; index: number }>,
+				payload: { element, index },
+			}: PayloadAction<{ element: ContactElement; index: number }>,
 		) => {
-			state.contacts[index] = elem;
+			state.contacts[index] = element;
 		},
 	},
 });

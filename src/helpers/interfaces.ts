@@ -25,10 +25,13 @@ export interface FormProps {
 	onChange: CallbackFormProps;
 }
 
-export interface ContactElement {
+export interface ContactFields {
 	name: string;
 	email: string;
 	phone: string;
+}
+
+export interface ContactElement extends ContactFields {
 	id: number;
 }
 
@@ -37,24 +40,11 @@ export interface ContactsProps {
 	id: string;
 }
 
-export interface FuncButtonProps {
-	(): void;
-}
-
 export interface ButtonProps {
 	title: string;
-	id?: number;
-	url?: string;
-	onChange: FuncButtonProps;
-	isActive?: boolean;
-}
-
-export interface ButtonActionProps {
-	title: string;
-	id: number;
-	onChange: FuncButtonProps;
-	isActive?: boolean;
-	transition: boolean;
+	onChange: () => void;
+	className: string;
+	iconClassName: string;
 }
 
 export interface UserProps {
