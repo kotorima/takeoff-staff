@@ -9,8 +9,8 @@ import paths from "./paths";
 
 const PackageLocation = () => {
 	const auth = useAuth();
-	const [getUser] = useGetUserMutation();
 	const dispatch = useDispatch();
+	const [getUser] = useGetUserMutation();
 	const [isLoaded, setIsLoaded] = useState(false);
 	const loader = useCheckAuth;
 

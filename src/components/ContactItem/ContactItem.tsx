@@ -19,8 +19,8 @@ export const ContactItem = ({
 	id,
 	index,
 }: ContactItemProps) => {
-	const [show, setShow] = useState(true);
-	const [edit, setEdit] = useState(false);
+	const [isTransition, setIsTransition] = useState(true);
+	const [isEdit, setIsEdit] = useState(false);
 	const [formValues, setFormValues] = useState({
 		name: name,
 		email: email,
@@ -29,9 +29,9 @@ export const ContactItem = ({
 
 	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	const changeShow = (value: boolean) => setShow(value);
-	const changeEdit = (value: boolean) => setEdit(value);
-	const transitionEnd = () => setShow(true);
+	const changeIsTransition = (value: boolean) => setIsTransition(value);
+	const changeIsEdit = (value: boolean) => setIsEdit(value);
+	const transitionEnd = () => setIsTransition(true);
 	const getValue = (value: object) =>
 		setFormValues({ ...formValues, ...value });
 
@@ -42,20 +42,20 @@ export const ContactItem = ({
 
 	const itemStyles = cx({
 		[item]: true,
-		[disabled]: !edit,
+		[disabled]: !isEdit,
 	});
 
 	const commonInputProps = {
 		className: input,
 		getValue,
 		required: true,
-		restore: edit,
+		restore: isEdit,
 		id,
 	};
 
 	return (
 		<CSSTransition
-			in={show}
+			in={isTransition}
 			classNames={transitionNames}
 			timeout={500}
 			unmountOnExit
@@ -90,10 +90,10 @@ export const ContactItem = ({
 							contactId={id}
 							elementIndex={index}
 							formValues={formValues}
-							toggleShow={changeShow}
-							toggleEdit={changeEdit}
-							show={show}
-							edit={edit}
+							toggleIsTransition={changeIsTransition}
+							toggleIsEdit={changeIsEdit}
+							isTransition={isTransition}
+							isEdit={isEdit}
 						/>
 					</div>
 				</Box>

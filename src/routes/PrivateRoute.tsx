@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Navigate, useLocation, Outlet } from "react-router-dom";
-import { useNavigatedFrom, useAuth } from "hooks";
+import { useAuth } from "hooks";
+import { Redirect } from "./Redirect";
 
 interface Props {
 	children: JSX.Element;
@@ -8,11 +7,9 @@ interface Props {
 
 export const PrivateRoute = ({ children }: Props) => {
 	const auth = useAuth();
-	const location = useLocation();
-	const navigatedFrom = useNavigatedFrom();
 
 	if (!auth.user) {
-		return <Navigate to='/authorization' state={{ from: location }} />;
+		return <Redirect link='/authorization' />;
 	}
 
 	return children;

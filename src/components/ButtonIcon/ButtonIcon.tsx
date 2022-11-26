@@ -1,13 +1,19 @@
 import { Tooltip, IconButton } from "@mui/material";
 import { ButtonProps } from "helpers/interfaces";
-import { Icon } from "./Icon";
+import { DynamicIcon } from "components/DynamicIcon";
+
+type Names = "Edit" | "Restore" | "Save" | "Delete";
+
+interface ButtonIconProps extends ButtonProps {
+	title: Names;
+}
 
 export const ButtonIcon = ({
 	title,
 	className,
 	iconClassName,
 	onChange,
-}: ButtonProps) => {
+}: ButtonIconProps) => {
 	return (
 		<Tooltip
 			disableFocusListener
@@ -16,7 +22,7 @@ export const ButtonIcon = ({
 			className={className}
 		>
 			<IconButton>
-				<Icon name={title} className={iconClassName} />
+				<DynamicIcon name={title} className={iconClassName} />
 			</IconButton>
 		</Tooltip>
 	);

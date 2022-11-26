@@ -17,20 +17,20 @@ interface ActionPanelProps {
 	elementIndex: number;
 	formValues: ContactFields;
 	contactId: number;
-	toggleShow: ToggleFunctionProps;
-	toggleEdit: ToggleFunctionProps;
-	show: boolean;
-	edit: boolean;
+	toggleIsTransition: ToggleFunctionProps;
+	toggleIsEdit: ToggleFunctionProps;
+	isTransition: boolean;
+	isEdit: boolean;
 }
 
 export const ActionPanel = ({
 	contactId,
 	elementIndex,
 	formValues,
-	toggleShow,
-	toggleEdit,
-	show,
-	edit,
+	toggleIsTransition,
+	toggleIsEdit,
+	isTransition,
+	isEdit,
 }: ActionPanelProps) => {
 	const dispatch = useDispatch();
 	const [isDelete, setIsDelete] = useState(false);
@@ -42,27 +42,27 @@ export const ActionPanel = ({
 			userId: getStorageUserId(),
 		},
 	};
-	const { disabled, saveIcon, editIcon, restoreIcon, removeIcon, icon } =
-		styles;
+	const { disabled, save, edit, restore, remove, icon } = styles;
 
 	useEffect(() => {
-		if (show && isDelete) {
+		if (isTransition && isDelete) {
 			dispatch(deleteContact(contactId));
 		}
-	}, [show]);
+	}, [isTransition]);
 
-	const editElement = () => toggleEdit(true);
+	const editElement = () => toggleIsEdit(true);
 
-	const restoreElement = () => toggleEdit(false);
+	const restoreElement = () => toggleIsEdit(false);
 
-	const deleteElement = () =>
+	const deleteElement = () => {
 		removeContact(params)
 			.unwrap()
 			.then(() => {
 				setIsDelete(true);
-				toggleShow(false);
+				toggleIsTransition(false);
 			})
 			.catch((error: any) => console.log(error));
+	};
 
 	const saveElement = () => {
 		params.body = { ...params.body, ...formValues };
@@ -70,16 +70,16 @@ export const ActionPanel = ({
 		updateContactReq(params)
 			.unwrap()
 			.then((response: any) => {
-				const arg = { element: response, index: elementIndex };
-				dispatch(updateContact(arg));
-				toggleEdit(false);
+				const options = { element: response, index: elementIndex };
+				dispatch(updateContact(options));
+				toggleIsEdit(false);
 			})
 			.catch((error: any) => console.log(error));
 	};
 
 	const saveStyles = cx({
-		[saveIcon]: true,
-		[disabled]: !edit,
+		[save]: true,
+		[disabled]: !isEdit,
 	});
 
 	return (
@@ -87,24 +87,15 @@ export const ActionPanel = ({
 			<ButtonIcon
 				title='Delete'
 				onChange={deleteElement}
-				className={removeIcon}
+				className={remove}
 				iconClassName={icon}
 			/>
-			{edit ? (
-				<ButtonIcon
-					title='Restore'
-					onChange={restoreElement}
-					className={restoreIcon}
-					iconClassName={icon}
-				/>
-			) : (
-				<ButtonIcon
-					title='Edit'
-					onChange={editElement}
-					className={editIcon}
-					iconClassName={icon}
-				/>
-			)}
+			<ButtonIcon
+				title={isEdit ? "Restore" : "Edit"}
+				onChange={isEdit ? restoreElement : editElement}
+				className={isEdit ? restore : edit}
+				iconClassName={icon}
+			/>
 			<ButtonIcon
 				title='Save'
 				onChange={saveElement}

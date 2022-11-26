@@ -1,16 +1,16 @@
-.saveIcon {
+.save {
     @include button-icon($active-green);
 }
 
-.editIcon {
+.edit {
     @include button-icon($active-blue);
     transform: rotateX(90);
 }
 
-.removeIcon {
+.remove {
     @include button-icon($active-red);
 }
 
-.restoreIcon {
+.restore {
     @include button-icon($active-yellow);
 }
