@@ -1,12 +1,12 @@
 import { PageProps } from "helpers/interfaces";
 import { PageBasis } from "components/PageBasis";
-import { Form } from "components/forms";
+import { IdentificationForm } from "components/IdentificationForm";
 
 const AuthorizationPage = ({ title }: PageProps) => {
 	return (
 		<PageBasis title={title}>
 			<div>
-				<Form />
+				<IdentificationForm />
 			</div>
 		</PageBasis>
 	);

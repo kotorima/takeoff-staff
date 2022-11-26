@@ -46,7 +46,7 @@ export const ActionPanel = ({
 
 	useEffect(() => {
 		if (isTransition && isDelete) {
-			dispatch(deleteContact(contactId));
+			dispatch(deleteContact({ id: contactId }));
 		}
 	}, [isTransition]);
 

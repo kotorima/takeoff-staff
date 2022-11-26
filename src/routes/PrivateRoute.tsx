@@ -1,4 +1,4 @@
-import { useAuth } from "hooks";
+import { useUserCheck } from "hooks";
 import { Redirect } from "./Redirect";
 
 interface Props {
@@ -6,9 +6,9 @@ interface Props {
 }
 
 export const PrivateRoute = ({ children }: Props) => {
-	const auth = useAuth();
+	const user = useUserCheck();
 
-	if (!auth.user) {
+	if (!user) {
 		return <Redirect link='/authorization' />;
 	}
 

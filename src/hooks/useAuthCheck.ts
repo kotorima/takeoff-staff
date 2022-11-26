@@ -4,7 +4,7 @@ interface GetProps {
 	(): any;
 }
 
-export const useCheckAuth = async (getUser: GetProps) => {
+export const useAuthCheck = async (getUser: GetProps) => {
 	const resp = await getUser()
 		.unwrap()
 		.then((res: any) => {

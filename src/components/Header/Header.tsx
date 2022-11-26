@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link as RouteLink, Outlet } from "react-router-dom";
 import { AppBar, Link } from "@mui/material";
 import { Logout, Login } from "@mui/icons-material";
-import { useAuth } from "hooks";
+import { useUserCheck } from "hooks";
 import { removeUserFromStorage } from "helpers";
 import { setAuthData } from "store/slices/auth";
 import styles from "./styles.module.scss";
@@ -13,7 +13,7 @@ export const Header = () => {
 		{ title: "Authorization", path: "/authorization" },
 	];
 	const dispatch = useDispatch();
-	const { user } = useAuth();
+	const user = useUserCheck();
 
 	const { header, link, button, wrapper } = styles;
 

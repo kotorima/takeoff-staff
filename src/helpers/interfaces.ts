@@ -9,8 +9,8 @@ export interface PageProps {
 }
 
 export interface ShowFormChangeProps {
-	log: boolean;
-	reg: boolean;
+	formLog: boolean;
+	formReg: boolean;
 }
 
 export interface CallbackFormProps {

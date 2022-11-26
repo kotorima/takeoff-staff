@@ -3,8 +3,8 @@ import { ShowFormChangeProps } from "helpers/interfaces";
 import { Registeration } from "./Registeration/Registeration";
 import { Login } from "./Login/Login";
 
-export const Form = () => {
-	const [show, setShow] = useState({ log: true, reg: false });
+export const IdentificationForm = () => {
+	const [show, setShow] = useState({ formLog: true, formReg: false });
 
 	const toggleShow = (changes: ShowFormChangeProps) => {
 		setShow(changes);
@@ -12,7 +12,7 @@ export const Form = () => {
 
 	return (
 		<>
-			{show.log ? (
+			{show.formLog ? (
 				<Login onChange={toggleShow} />
 			) : (
 				<Registeration onChange={toggleShow} />

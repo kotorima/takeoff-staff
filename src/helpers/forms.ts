@@ -24,7 +24,9 @@ export const validateForm = (fields: LoginRequestProps, error: ErrorProps) => {
 export const changeShowForm: ChangeFormProps = (callback, form) => {
 	const show = false;
 	const changes =
-		form === "log" ? { log: show, reg: !show } : { log: !show, reg: show };
+		form === "log"
+			? { formLog: show, formReg: !show }
+			: { formLog: !show, formReg: show };
 
 	callback(changes);
 };

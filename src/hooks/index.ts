@@ -1,7 +1,7 @@
-export { useAuth } from "./useAuth";
+export { useUserCheck } from "./useUserCheck";
 export { useContacts } from "./useContacts";
 export { useNavigatedFrom } from "./useRouters";
-export { useCheckAuth } from "./useCheckAuth";
+export { useAuthCheck } from "./useAuthCheck";
 export { useAppDispatch, useTypedSelector } from "./useStorage";
 export {
 	useGetUserMutation,

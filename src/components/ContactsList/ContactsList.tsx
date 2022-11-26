@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import { useGetContactsMutation, useContacts } from "hooks";
@@ -6,10 +6,13 @@ import { ContactElement } from "helpers/interfaces";
 import { setContacts } from "store/slices/contacts";
 import { ContactItem } from "components/ContactItem";
 import styles from "./styles.module.scss";
+import { reverse } from "json-server-auth";
 
 export const ContactsList = () => {
 	const contacts = useContacts();
 	const dispatch = useDispatch();
+	const [reversed, setReversed] = useState(false);
+	let newContacts: ContactElement[] = [];
 	const [getContacts] = useGetContactsMutation();
 	const { header, container, body, left } = styles;
 
@@ -25,9 +28,30 @@ export const ContactsList = () => {
 			});
 	};
 
+	const arrayReverse = (list: ContactElement[]) => {
+		// if (list.length && !reversed) {
+		const myarr = [...list];
+		myarr.reverse();
+		console.log(myarr);
+		setReversed(true);
+		return myarr;
+		// }
+		// return [];
+	};
+
 	useEffect(() => {
 		getList();
 	}, []);
+
+	useEffect(() => {
+		// if (contacts.length && !reversed) {
+		// 	// const myarr = [...contacts];
+		// 	// contacts.reverse();
+		// 	// console.log(myarr);
+		// 	// setReversed(true);
+		// 	newContacts = arrayReverse(contacts);
+		// }
+	}, [contacts]);
 
 	return (
 		<div>

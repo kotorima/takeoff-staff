@@ -2,20 +2,20 @@ import { Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useAuth, useCheckAuth } from "hooks";
+import { useUserCheck, useAuthCheck } from "hooks";
 import { useGetUserMutation } from "hooks/useApiRequest";
 import { setAuthData } from "store/slices/auth";
 import paths from "./paths";
 
 const PackageLocation = () => {
-	const auth = useAuth();
+	const user = useUserCheck();
 	const dispatch = useDispatch();
 	const [getUser] = useGetUserMutation();
 	const [isLoaded, setIsLoaded] = useState(false);
-	const loader = useCheckAuth;
+	const loader = useAuthCheck;
 
 	useEffect(() => {
-		if (!auth.user) {
+		if (!user) {
 			loader(getUser).then((response) => {
 				if (response) {
 					dispatch(setAuthData(response));

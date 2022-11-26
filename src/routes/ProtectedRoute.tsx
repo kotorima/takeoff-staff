@@ -1,4 +1,4 @@
-import { useNavigatedFrom, useAuth } from "hooks";
+import { useNavigatedFrom, useUserCheck } from "hooks";
 import { Redirect } from "./Redirect";
 
 interface Props {
@@ -6,10 +6,10 @@ interface Props {
 }
 
 export const ProtectedRoute = ({ children }: Props) => {
-	const auth = useAuth();
+	const user = useUserCheck();
 	const navigatedFrom = useNavigatedFrom();
 
-	if (auth.user) {
+	if (user) {
 		return <Redirect link={navigatedFrom} />;
 	}
 

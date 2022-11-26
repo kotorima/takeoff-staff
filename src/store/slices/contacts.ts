@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ContactsProps, ContactElement, UserProps } from "helpers/interfaces";
 import type { RootState } from "../generateState";
+import { ContactElement, StateProps } from "helpers/interfaces";
 import initialState from "../initialState";
+
+interface UpdateContactProps {
+	element: ContactElement;
+	index: number;
+}
 
 export const slice = createSlice({
 	name: "contacts",
-	initialState: initialState,
+	initialState: initialState as StateProps,
 	reducers: {
 		setContacts: (state, { payload }: PayloadAction<ContactElement[]>) => {
 			state.contacts = payload;
@@ -14,17 +19,15 @@ export const slice = createSlice({
 		addNewContact: (state, { payload }: PayloadAction<ContactElement>) => {
 			state.contacts.push(payload);
 		},
-		deleteContact: (state, { payload }: PayloadAction<number>) => {
-			const list = state.contacts.filter(
-				(item: ContactElement) => item.id !== payload,
+		deleteContact: (state, { payload }: PayloadAction<{ id: number }>) => {
+			const updateContacts = state.contacts.filter(
+				(item: ContactElement) => item.id !== payload.id,
 			);
-			state.contacts = list;
+			state.contacts = updateContacts;
 		},
 		updateContact: (
 			state,
-			{
-				payload: { element, index },
-			}: PayloadAction<{ element: ContactElement; index: number }>,
+			{ payload: { element, index } }: PayloadAction<UpdateContactProps>,
 		) => {
 			state.contacts[index] = element;
 		},
