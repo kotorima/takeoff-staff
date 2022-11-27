@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import addTitlePage from "helpers/addTitlePage";
-import { PageProps } from "helpers/interface";
+import { PageProps } from "helpers/interfaces";
 import { Header } from "../Header";
 
 export const PageBasis = ({ title, children }: PageProps) => {

@@ -1,18 +1,21 @@
 .wrapper {
-	display: grid;
-	grid-template-columns: repeat(3, 1.5fr) 1fr;
-	grid-gap: 15px;
-	padding: 20px 0;
-	transform: translateY(-1px);
-	background: $main-background;
-
-	> div {
-		display: flex;
-		align-items: center;
-		width: 100%;
-	}
+    display: grid;
+    grid-template-columns: repeat(3, 1.5fr) 1fr;
+    grid-gap: 15px;
+    padding: 20px 0;
+    transform: translateY(-1px);
+    background: $main-background;
+    >div {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
 }
 
 .input {
-	@include input;
+    @include input;
+}
+
+.disabled {
+    pointer-events: none;
 }

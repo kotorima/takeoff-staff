@@ -1,24 +1,42 @@
+import { useDispatch } from "react-redux";
+import { Link as RouteLink, Outlet } from "react-router-dom";
 import { AppBar, Link } from "@mui/material";
 import { Logout, Login } from "@mui/icons-material";
-import { useAuth } from "helpers/auth";
+import { useUserCheck } from "hooks";
+import { removeUserFromStorage } from "helpers";
+import { setAuthData } from "store/slices/auth";
+import { setContacts } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const Header = () => {
-	const { header, link, button, wrapper } = styles;
-	const pages = ["Contacts"];
-	let auth = useAuth();
+	const pages = [
+		{ title: "Contacts", path: "/contacts" },
+		{ title: "Authorization", path: "/authorization" },
+	];
+	const dispatch = useDispatch();
+	const user = useUserCheck();
 
-	const logout = () => {};
+	const { header, link, button, wrapper } = styles;
+
+	const logout = () => {
+		const params = {
+			token: "",
+			user: null,
+		};
+		removeUserFromStorage();
+		dispatch(setAuthData(params));
+		dispatch(setContacts([]));
+	};
 
 	return (
 		<AppBar position='fixed' className={header}>
 			<div className={`wrapper ${wrapper}`}>
-				{pages.map((page) => (
-					<Link className={link} component='button' key={page}>
-						{page}
-					</Link>
+				{pages.map(({ path, title }) => (
+					<RouteLink className={link} to={path} key={title}>
+						{title}
+					</RouteLink>
 				))}
-				{auth.user ? (
+				{user ? (
 					<Link className={button} component='button' onClick={logout}>
 						<Logout />
 						Logout
@@ -29,6 +47,7 @@ export const Header = () => {
 						Login
 					</Link>
 				)}
+				<Outlet />
 			</div>
 		</AppBar>
 	);

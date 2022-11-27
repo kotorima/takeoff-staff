@@ -1,12 +1,9 @@
-import { StateProps } from "../helpers/interface";
-import { getAccessToken, getRefreshToken } from "../helpers/auth";
+import { getStorageToken } from "helpers/localStorage";
 
-const initialState: StateProps = {
-	apiUrl: "",
+const initialState = {
 	auth: {
 		user: null,
-		accessToken: getAccessToken,
-		refreshToken: getRefreshToken,
+		token: getStorageToken(),
 	},
 	contacts: [],
 };

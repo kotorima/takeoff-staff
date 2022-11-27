@@ -1,27 +1,37 @@
-import RequireAuth from "../components/auth/RequireAuth";
-import AuthorizationPage from "../pages/authorization";
-import ContactsPage from "../pages/contacts";
-import Redirect from "./Redirect";
+import AuthorizationPage from "pages/authorization";
+import ContactsPage from "pages/contacts";
+import NotFound from "pages/notfound";
+import { PrivateRoute } from "./PrivateRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const paths = [
 	{
-		path: "/authorization",
-		id: 1,
-		element: <AuthorizationPage title='Authorization' />,
+		path: "test",
+		id: 0,
+		element: <NotFound title='Test' />,
 	},
 	{
-		path: "/contacts",
+		path: "authorization",
+		id: 1,
+		element: (
+			<ProtectedRoute>
+				<AuthorizationPage title='Authorization' />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: "contacts",
 		id: 2,
 		element: (
-			<RequireAuth>
+			<PrivateRoute>
 				<ContactsPage title='Contacts' />
-			</RequireAuth>
+			</PrivateRoute>
 		),
 	},
 	{
 		path: "*",
 		id: 3,
-		element: <Redirect link='/authorization' />,
+		element: <NotFound title='Page Not Found' />,
 	},
 ];
 

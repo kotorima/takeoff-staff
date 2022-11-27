@@ -1,32 +1,30 @@
-module.exports = () => {
-    const {
-        defineData,
-        arrayGenerator,
-        valueGenerator,
-        casual,
-    } = require("./generators.js");
+module.exports = function() {
+    const generators = require("./generators");
+    const userId = 1221;
 
     const elementForContactList = {
-        email: (start) => valueGenerator(start, "email"),
-        phone: (start) => valueGenerator(start, "phone"),
-        name: (start) => valueGenerator(start, "full_name"),
-        id: (start) => valueGenerator(start, "id"),
+        userId: userId,
+        name: (start) => generators.valueGenerator(start, "full_name"),
+        phone: (start) => generators.valueGenerator(start, "phone"),
+        email: (start) => generators.valueGenerator(start, "email"),
+        id: (start) => generators.valueGenerator(start, "id"),
     };
 
-    const contactsData = arrayGenerator(elementForContactList, 20);
+    const contactsList = generators.arrayGenerator(elementForContactList, 20);
 
     const usersData = [{
-        email: "user@email.com",
-        password: "YQnq8Xz5CvXYNu6O2LO",
+        email: "useremail@gmail.com",
+        password: "$2a$10$wr978e3ROCBILuShV0gxy.UrYIisM3NIcs1ifnxaV2kC0pkSpeGSC", //bestPassw0rd
         firstname: "Maria",
+        id: userId,
         lastname: "Yarkina",
-        id: casual.uuid,
     }, ];
 
-    defineData("users", usersData);
-    defineData("contacts", contactsData);
+    generators.defineData("users", usersData);
+    generators.defineData("contacts", contactsList);
 
-    const users = casual.users;
-    const contacts = casual.contacts;
+    const users = generators.casual.users;
+    const contacts = generators.casual.contacts;
+
     return { users, contacts };
 };

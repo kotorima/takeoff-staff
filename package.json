@@ -22,7 +22,6 @@
         "concurrently": "^7.4.0",
         "craco-sass-resources-loader": "^1.1.0",
         "husky": "^8.0.1",
-        "json-server": "^0.17.0",
         "normalize-scss": "^7.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -38,7 +37,7 @@
         "build": "craco build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "server": "json-server --watch src/api/data.js --middlewares ./node_modules/json-server-auth --port 8000 ",
+        "server": "node src/api/server.js",
         "dev": "concurrently \"npm run server\" \"npm run start\""
     },
     "eslintConfig": {

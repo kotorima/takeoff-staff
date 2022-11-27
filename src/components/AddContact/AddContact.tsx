@@ -1,34 +1,39 @@
 import { useState, FormEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Box, Button } from "@mui/material";
 import { AddCircleOutline as AddCircleIcon } from "@mui/icons-material";
+import { getStorageUserId } from "helpers";
+import { useAddContactMutation } from "hooks";
+import { addNewContact } from "store/slices/contacts";
 import { CustomInput } from "components/inputs/CustomInput";
-import { request } from "helpers";
-import { getApiUrl } from "store/slices/apiUrl";
-import { getContacts, setContacts } from "store/slices/contacts";
+import classNames from "classnames";
 import styles from "./styles.module.scss";
+const cx = classNames.bind(styles);
 
 export const AddContact = () => {
-	const contacts = useSelector(getContacts);
 	const dispatch = useDispatch();
 	const [formValues, setFormValues] = useState({});
-	const url = useSelector(getApiUrl) + "/contacts";
-	const { input, wrapper } = styles;
 	const [reset, setReset] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(false);
+	const [addContact] = useAddContactMutation();
+	const { input, wrapper, disabled } = styles;
 
 	const addElement = (event: FormEvent) => {
-		const data = JSON.stringify(formValues);
-		const params = {
-			method: "POST",
-			body: data,
+		setIsDisabled(true);
+		const data = formValues;
+		const body = {
+			userId: getStorageUserId(),
+			...data,
 		};
 
-		request(url, params).then((res) => {
-			let newList = [...contacts];
-			newList.unshift(res);
-			dispatch(setContacts(newList));
-			setReset(true);
-		});
+		addContact(body)
+			.unwrap()
+			.then((response: any) => {
+				dispatch(addNewContact(response));
+				setReset(true);
+				setIsDisabled(false);
+			})
+			.catch((error: any) => console.log(error));
 
 		event.preventDefault();
 	};
@@ -43,6 +48,10 @@ export const AddContact = () => {
 		required: true,
 		reset,
 	};
+
+	const buttonStyles = cx({
+		[disabled]: isDisabled,
+	});
 
 	return (
 		<div>
@@ -66,7 +75,12 @@ export const AddContact = () => {
 					placeholder='Email Address'
 					{...commonInputProps}
 				/>
-				<Button type='submit' variant='contained' endIcon={<AddCircleIcon />}>
+				<Button
+					type='submit'
+					className={buttonStyles}
+					variant='contained'
+					endIcon={<AddCircleIcon />}
+				>
 					Add Contact
 				</Button>
 			</Box>

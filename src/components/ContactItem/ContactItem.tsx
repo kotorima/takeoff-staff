@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { CSSTransition } from "react-transition-group";
-import { ButtonDelete, ButtonEdit, ButtonSave, ButtonCancel } from "../buttons";
+import { ContactElement } from "helpers/interfaces";
 import { CustomInput } from "components/inputs/CustomInput";
-import { ContactElement, FuncButtonProps } from "helpers/interface";
-import { getApiUrl } from "store/slices/apiUrl";
-import { getContacts, setContacts } from "store/slices/contacts";
+import { ActionPanel } from "components/ActionPanel";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
 const cx = classNames.bind(styles);
@@ -22,39 +19,21 @@ export const ContactItem = ({
 	id,
 	index,
 }: ContactItemProps) => {
-	const contacts = useSelector(getContacts);
-	const dispatch = useDispatch();
-	const [show, setShow] = useState(true);
-	const [list, setList] = useState<ContactElement[]>(contacts);
-	const [edit, setEdit] = useState(false);
-	const url = useSelector(getApiUrl) + "/contacts";
+	const [isTransition, setIsTransition] = useState(true);
+	const [isEdit, setIsEdit] = useState(false);
 	const [formValues, setFormValues] = useState({
 		name: name,
-		email: email,
 		phone: phone,
-		id: id,
+		email: email,
 	});
+
 	const { item, input, hide, wrapper, left, disabled } = styles;
 
-	const deleteElement: FuncButtonProps = (newList) => {
-		setShow(false);
-		setList(newList);
-	};
-
-	const editElement: FuncButtonProps = () => setEdit(true);
-
-	const saveElement: FuncButtonProps = (newList) => {
-		setEdit(false);
-		setList(newList);
-		dispatch(setContacts(newList));
-	};
-
-	const cancelElement: FuncButtonProps = () => setEdit(false);
-
+	const changeIsTransition = (value: boolean) => setIsTransition(value);
+	const changeIsEdit = (value: boolean) => setIsEdit(value);
+	const transitionEnd = () => setIsTransition(true);
 	const getValue = (value: object) =>
 		setFormValues({ ...formValues, ...value });
-
-	const transitionEnd = () => dispatch(setContacts(list));
 
 	const transitionNames = {
 		enterActive: item,
@@ -63,19 +42,20 @@ export const ContactItem = ({
 
 	const itemStyles = cx({
 		[item]: true,
-		[disabled]: !edit,
+		[disabled]: !isEdit,
 	});
+
 	const commonInputProps = {
 		className: input,
 		getValue,
 		required: true,
-		restore: edit,
+		restore: isEdit,
 		id,
 	};
 
 	return (
 		<CSSTransition
-			in={show}
+			in={isTransition}
 			classNames={transitionNames}
 			timeout={500}
 			unmountOnExit
@@ -106,25 +86,14 @@ export const ContactItem = ({
 						{...commonInputProps}
 					/>
 					<div className={left}>
-						<ButtonDelete
-							title='Delete'
-							id={id}
-							url={url}
-							onChange={deleteElement}
-						/>
-						{edit ? (
-							<ButtonCancel title='Restore' onChange={cancelElement} />
-						) : (
-							<ButtonEdit title='Edit' onChange={editElement} />
-						)}
-						<ButtonSave
-							title='Save'
-							id={id}
-							url={url}
-							onChange={saveElement}
-							isActive={edit}
-							index={index}
+						<ActionPanel
+							contactId={id}
+							elementIndex={index}
 							formValues={formValues}
+							toggleIsTransition={changeIsTransition}
+							toggleIsEdit={changeIsEdit}
+							isTransition={isTransition}
+							isEdit={isEdit}
 						/>
 					</div>
 				</Box>
