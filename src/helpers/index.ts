@@ -7,5 +7,4 @@ export {
 	getStorageUserId,
 } from "./localStorage";
 export { validateForm, changeShowForm } from "./forms";
-export { arrayReverse } from "./arrayReverse";
 export { theme } from "./theme";

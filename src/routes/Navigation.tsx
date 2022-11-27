@@ -1,10 +1,10 @@
 import { Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
 import { useUserCheck, useAuthCheck } from "hooks";
 import { useGetUserMutation } from "hooks/useApiRequest";
 import { setAuthData } from "store/slices/auth";
+import { Preloader } from "components/Preloader";
 import paths from "./paths";
 
 const PackageLocation = () => {
@@ -34,7 +34,7 @@ const PackageLocation = () => {
 					))}
 				</Routes>
 			) : (
-				<CircularProgress />
+				<Preloader />
 			)}
 		</>
 	);

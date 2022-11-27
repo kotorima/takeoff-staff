@@ -23,8 +23,8 @@ export const ContactItem = ({
 	const [isEdit, setIsEdit] = useState(false);
 	const [formValues, setFormValues] = useState({
 		name: name,
-		email: email,
 		phone: phone,
+		email: email,
 	});
 
 	const { item, input, hide, wrapper, left, disabled } = styles;

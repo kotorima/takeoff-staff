@@ -70,6 +70,7 @@ export const ActionPanel = ({
 		updateContactReq(params)
 			.unwrap()
 			.then((response: any) => {
+				console.log(response);
 				const options = { element: response, index: elementIndex };
 				dispatch(updateContact(options));
 				toggleIsEdit(false);

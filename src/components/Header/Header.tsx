@@ -5,6 +5,7 @@ import { Logout, Login } from "@mui/icons-material";
 import { useUserCheck } from "hooks";
 import { removeUserFromStorage } from "helpers";
 import { setAuthData } from "store/slices/auth";
+import { setContacts } from "store/slices/contacts";
 import styles from "./styles.module.scss";
 
 export const Header = () => {
@@ -24,6 +25,7 @@ export const Header = () => {
 		};
 		removeUserFromStorage();
 		dispatch(setAuthData(params));
+		dispatch(setContacts([]));
 	};
 
 	return (
