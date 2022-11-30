@@ -2,15 +2,19 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-The project uses Node.js v16.15.0
+The project uses `Node.js v16.15.0`
 Сheck which node version you are currently using with the command:
 
-### `node -v`
+```
+node -v
+```
 
-If this is 16.15.0, then you can directly proceed to the installation of the project, else we will use nvm.
+If this is `16.15.0`, then you can directly proceed to the installation of the project, else we will use nvm.
 Сheck if you have nvm with the command:
 
-### `nvm --version`
+```
+nvm --version
+```
 
 If there were no problems and it displayed the version, then the next step can be skipped
 
@@ -19,36 +23,50 @@ https://github.com/coreybutler/nvm-windows/releases
 
 After installation, we check its presence again by calling the command:
 
-### `nvm --version`
+```
+nvm --version
+```
 
 If everything is OK, then we run the command
 
-### `nvm list`
+```
+nvm list
+```
 
-and check if we have the required version installed, if 16.15.0 is in the list, then we execute this command
+and check if we have the required version installed, if `16.15.0` is in the list, then we execute this command
 
-### `nvm use 16.15.0`
+```
+nvm use 16.15.0
+```
 
 otherwise we download it using the command
 
-### `nvm install 16.15.0`
+```
+nvm install 16.15.0
+```
 
 and then we execute the previous command
 
 Тake the project by calling the command:
 
-### `npm install`
+```
+npm install
+```
 
 If there is a dependency conflict, then run:
 
-### `npm install --force`
+```
+npm install --force
+```
 
 ## Available Scripts
 
 In the project directory, you can run:
 npm
 
-### `npm run dev`
+```
+npm run dev
+```
 
 Runs the app in the development mode.
 
