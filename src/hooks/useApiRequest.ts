@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-	UserResponseProps,
-	LoginRequestProps,
-	RegisterRequestProps,
-	UserRequestProps,
-} from "helpers/interfaces";
-import type { RootState } from "store/generateState";
+import { UserResponseProps, UserRequestProps } from "helpers/interfaces";
 import { getStorageToken, getStorageUserId } from "helpers/localStorage";
 import { baseApiUrl } from "helpers/getBaseApiUrl";
 
