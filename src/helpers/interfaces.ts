@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 type FormName = "log" | "reg";
 type UrlAuth = "/login" | "/register";
+export type NoticeTypes = "success" | "info" | "warning" | "error";
 
 export interface PageProps {
 	title: string;
@@ -60,9 +61,18 @@ export interface AuthProps {
 	token: string | null;
 }
 
+export interface NoticeProps {
+	status?: number;
+	message: string;
+	type?: NoticeTypes | "info";
+	open: boolean;
+	id: number;
+}
+
 export interface StateProps {
 	contacts: ContactElement[];
 	auth: AuthProps;
+	notifications: NoticeProps[];
 }
 
 export interface UserStorageProps {

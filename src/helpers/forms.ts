@@ -17,7 +17,6 @@ export const validateForm = (fields: LoginRequestProps, error: ErrorProps) => {
 	if (data === serverMessages[2] || data === serverMessages[3]) {
 		newMessages.password = data;
 	}
-	console.log(newMessages);
 	return newMessages;
 };
 

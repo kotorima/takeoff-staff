@@ -6,6 +6,7 @@ const initialState = {
 		token: getStorageToken(),
 	},
 	contacts: [],
+	notifications: [],
 };
 
 export default initialState;

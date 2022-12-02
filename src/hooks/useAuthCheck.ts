@@ -1,10 +1,13 @@
+import { useDispatch } from "react-redux";
 import { getStorageToken, setUserFromStorage } from "helpers/localStorage";
-
+import { setNotification } from "store/slices/notifications";
+import { useAppDispatch } from "hooks";
 interface GetProps {
 	(): any;
 }
 
 export const useAuthCheck = async (getUser: GetProps) => {
+	const dispatch = useAppDispatch();
 	const resp = await getUser()
 		.unwrap()
 		.then((res: any) => {
@@ -20,6 +23,6 @@ export const useAuthCheck = async (getUser: GetProps) => {
 				return error;
 			}
 		})
-		.catch((e: any) => console.log(e));
+		.catch((error: any) => console.log(error));
 	return resp;
 };

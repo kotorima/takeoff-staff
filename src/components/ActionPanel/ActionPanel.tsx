@@ -4,6 +4,7 @@ import { useUpdateContactReqMutation, useRemoveContactMutation } from "hooks";
 import { getStorageUserId } from "helpers";
 import { ContactFields } from "helpers/interfaces";
 import { updateContact, deleteContact } from "store/slices/contacts";
+import { setNotification } from "store/slices/notifications";
 import { ButtonIcon } from "components/ButtonIcon";
 import classNames from "classnames";
 import styles from "./styles.module.scss";
@@ -61,7 +62,9 @@ export const ActionPanel = ({
 				setIsDelete(true);
 				toggleIsTransition(false);
 			})
-			.catch((error: any) => console.log(error));
+			.catch((error: any) =>
+				dispatch(setNotification({ type: "error", ...error, id: 123 })),
+			);
 	};
 
 	const saveElement = () => {
