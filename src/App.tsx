@@ -5,7 +5,7 @@ import { theme } from "helpers";
 import { Layout, Navigation } from "routes";
 import "styles/basic.scss";
 
-export const App = () => {
+const App = () => {
 	return (
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>
@@ -21,3 +21,5 @@ export const App = () => {
 		</BrowserRouter>
 	);
 };
+
+export default App;

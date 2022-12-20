@@ -7,6 +7,7 @@ const AuthorizationPage = ({ title }: PageProps) => {
 		<PageBasis title={title}>
 			<div>
 				<IdentificationForm />
+				{title}
 			</div>
 		</PageBasis>
 	);

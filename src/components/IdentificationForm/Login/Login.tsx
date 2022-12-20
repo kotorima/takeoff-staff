@@ -10,7 +10,7 @@ import {
 } from "helpers/interfaces";
 import { setAuthData } from "store/slices/auth";
 import { AuthInput } from "components/inputs";
-import styles from "./styles.module.scss";
+import styles from "./Login.module.scss";
 
 export const Login = ({ onChange }: FormProps) => {
 	const fields = { password: "", email: "" };

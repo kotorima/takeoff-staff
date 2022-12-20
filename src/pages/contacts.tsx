@@ -1,14 +1,15 @@
 import { PageProps } from "helpers/interfaces";
 import { PageBasis } from "components/PageBasis";
-import { AddContact } from "components/AddContact";
-import { ContactsList } from "components/ContactsList";
+// import { AddContact } from "components/AddContact";
+// import { ContactsList } from "componnents/ContactsList";
 
 const ContactsPage = ({ title }: PageProps) => {
 	return (
 		<PageBasis title={title}>
 			<div>
-				<AddContact />
-				<ContactsList />
+				{/* <AddContact /> */}
+				{/* <ContactsList /> */}
+				{title}
 			</div>
 		</PageBasis>
 	);

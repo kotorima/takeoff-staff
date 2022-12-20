@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { NoticeProps } from "helpers/interfaces";
-import { useNotifications } from "hooks";
+// import { useNotifications } from "hooks";
 // import styles from "./styles.module.scss";
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -18,7 +18,7 @@ export const Notification = ({ type, message, status }: NoticeProps) => {
 	const [isDelete, setIsDelete] = useState(false);
 	// const { disabled, save } = styles;
 	const [open, setOpen] = useState(false);
-	const notices = useNotifications();
+	// const notices = useNotifications();
 
 	const handleClick = () => {
 		setOpen(true);
@@ -32,9 +32,9 @@ export const Notification = ({ type, message, status }: NoticeProps) => {
 		setOpen(false);
 	};
 
-	useEffect(() => {
-		console.log(notices);
-	}, [notices]);
+	// useEffect(() => {
+	// 	console.log(notices);
+	// }, [notices]);
 
 	return (
 		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
