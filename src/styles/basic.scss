@@ -20,5 +20,5 @@ a {
 .wrapper {
     margin: 0 auto;
     height: 100%;
-    // @extend .adaptive-container;
+    @extend .adaptive-container;
 }

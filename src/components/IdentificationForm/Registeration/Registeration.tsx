@@ -8,7 +8,7 @@ import {
 	LoginRequestProps,
 } from "helpers/interfaces";
 import { AuthInput } from "components/inputs";
-import styles from "./Registeration.module.scss";
+import styles from "./styles.module.scss";
 
 export const Registeration = ({ onChange }: FormProps) => {
 	const fields = { password: "", email: "" };

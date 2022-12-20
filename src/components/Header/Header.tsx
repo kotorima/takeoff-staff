@@ -6,7 +6,7 @@ import { useUserCheck } from "hooks";
 import { removeUserFromStorage } from "helpers";
 import { setAuthData } from "store/slices/auth";
 import { setContacts } from "store/slices/contacts";
-import styles from "./Header.module.scss";
+import styles from "./styles.module.scss";
 
 export const Header = () => {
 	const pages = [
